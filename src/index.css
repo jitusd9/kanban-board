@@ -3,8 +3,9 @@
   --header-bg : #3d4751;
   --header-fg : #cbcdcd;
   --board-bg : #3a3a3a;
+  --board-border : #3f3f3f;
   --card-bg : #85879c;
-  --card-fg : #000;
+  --card-fg : #fff;
   --title-bg : #5f626e;
   --title-fg : #e3e3e3;
   --border-color : #333;
@@ -64,6 +65,7 @@ button {
     --header-bg : #f9f9f9;
     --header-fg : #2f3841;
     --board-bg : #f9f9f9;
+    --board-border : #f0f0f0;
     --card-bg : #fff;
     --card-fg : #000;
     --title-fg : #000;

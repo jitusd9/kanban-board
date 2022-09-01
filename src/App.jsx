@@ -1,52 +1,36 @@
 import React from "react"
-import Board from "./components/Board"
-import { Main, Container } from "./styled/App-styled";
+import { Main} from "./styled/app-styled";
 import Heading from "./components/Header";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyles } from "./styled/globalStyles";
+import { light, dark } from "./styled/theme";
+import Board from "./components/Board";
+
+function getTheme(){
+  let storedTheme = localStorage.getItem('theme');
+  return storedTheme === 'false' ? false : true 
+}
 
 function App() {
+  let storedTheme = getTheme()
+  const [theme, setTheme] = React.useState(storedTheme);
 
-  let initialArr = []
-  const storedItems = JSON.parse(localStorage.getItem('items'));
-
-  if(storedItems) {
-    initialArr = storedItems;
+  function toggleTheme(){
+    setTheme(!theme);
   }
 
-  const [items, setItemArr] = React.useState(initialArr);
-
-  function AddItem(txtObj){
-    setItemArr((old) => [...old, txtObj]);
-  }
-  
-  function DeleteItem(id=items.length - 1){
-
-    let newItems = items.filter((itemObj,index) => {
-      return index !== id ? itemObj : null
-    });
-    
-    setItemArr(newItems);
-
-  }
-  
-  React.useEffect(() => { 
-
-    localStorage.setItem('items', JSON.stringify(items));
-
-  },[items])
-
-
-  
+  React.useEffect(() => {
+    localStorage.setItem('theme',theme);
+  },[theme])
 
   return (
-    <Main>
-      <Heading />
-      <Container>
-        <Board title="To-Do" editable hex="#9371ff" addFunc={AddItem} delFunc={DeleteItem} list={items}/>
-        <Board title="Doing" hex="#ffd400" />
-        <Board title="Done 🎉" hex="#18c448" />
-        <Board title="Later" editable hex="#50626f" />
-      </Container>
-    </Main>
+    <ThemeProvider theme={theme ? light : dark}>
+      <GlobalStyles />
+      <Main>
+        <Heading toggleTheme={toggleTheme} />
+        <Board />
+      </Main>
+    </ThemeProvider>
   )
 }
 

@@ -2,12 +2,13 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   position: relative;
-  width: 260px;
-  min-height: 400px;
-  background-color: var(--board-bg);
+  width: 270px;
+  height: auto;
+  background-color: ${({theme}) => theme.boardBg};
   margin: 0.4rem;
   padding : 0.4rem;
   border-radius: 4px;
+  border: 8px solid ${({theme}) => theme.boardBorder};
 `
 const Input = styled.textarea`
   position : relative;
@@ -15,8 +16,9 @@ const Input = styled.textarea`
   padding: 0.2rem;
   font-size : 1.2rem;
   border : 1px solid transparent;
-  color : var(--card-fg);
-  background-color : var(--card-bg);
+  color : ${({theme}) => theme.cardFg};
+  background-color :${({theme}) => theme.cardBg};
+  resize: vertical;
 `
 
 const Button = styled.button`
@@ -49,7 +51,7 @@ const AddCard = styled(Title)`
   display : block;
   padding : 0.4rem;
   margin-top : 0.5rem;
-  background-color : var(--title-bg);
+  background-color : ${({theme}) => theme.titleBg};
   border : 1px solid #e3e3e3;
 `
 

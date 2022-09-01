@@ -1,27 +1,38 @@
 import styled from "styled-components";
 
 const Main = styled.div`
+  
 `
 
 const Input = styled.input`
   font-size : 2.5em;
   line-height : 1.1;
   font-weight : bold;
-  width : 100%;
   text-align : center;
   background-color : transparent;
   border : none;
 `
 
 const Header = styled.div`
-  color : var(--header-fg);
-  background-color : var(--header-bg);
+  color : ${({theme}) => theme.headerFg};
+  background-color : ${({theme}) => theme.headerBg};
   padding : 1rem;
   border-radius: 4px;
+  h1{
+    display : inline-block;
+  }
 `
 
 const Container = styled.div`
   display: flex;
+  flex-wrap : wrap;
+  justify-content: center;
 `
 
-export {Main, Input, Header, Container}
+const ThemeButton = styled.button`
+  font-size : 2em;
+  float: right;
+  background-color : transparent;
+`
+
+export {Main, Input, Header, Container, ThemeButton}
