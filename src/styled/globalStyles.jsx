@@ -1,5 +1,6 @@
 import { createGlobalStyle, css } from "styled-components";
 
+
 export const GlobalStyles = createGlobalStyle`
 
 :root {
@@ -8,7 +9,7 @@ export const GlobalStyles = createGlobalStyle`
   line-height: 24px;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: ${(props) => props.theme.scheme };
   color: rgba(255, 255, 255, 0.87);
   background-color: ${(props) => props.theme.bg};
 
@@ -17,7 +18,10 @@ export const GlobalStyles = createGlobalStyle`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  scrollbar-width: none;
 }
+
+
 
 a {
   font-weight: 500;

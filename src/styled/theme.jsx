@@ -1,6 +1,7 @@
 import { css } from "styled-components"
 
 export const dark = {
+  scheme : 'dark',
   bg : '#242424',
   headerBg : '#3d4751',
   headerFg : '#cbcdcd',
@@ -11,6 +12,10 @@ export const dark = {
   titleBg : '#5f626e',
   titleFg : '#e3e3e3',
   borderColor : '#333',
+  dialogBg : '#dfe8fd',
+  dialogFg : '#36374a',
+  hoverFg : '#232425',
+  hoverBg : '#f9f9f9',
 }
 
 const MessGradient = css`
@@ -28,6 +33,7 @@ const MessGradient = css`
 `
 
 export const light = {
+  scheme : 'light',
   bg : MessGradient,
   headerBg : '#f9f9f9',
   headerFg : '#2f3841',
@@ -38,4 +44,8 @@ export const light = {
   titleFg : '#000',
   titleBg : '#f9f9f9',
   borderColor : '#e3e3e3',
+  dialogBg : '#4f5962',
+  dialogFg : '#f9f9f9',
+  hoverFg : '#f9f9f9',
+  hoverBg : '#3a3c43',
 }

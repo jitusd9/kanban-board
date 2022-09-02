@@ -3,11 +3,12 @@ import Card from './Card'
 import { 
   Container,
   Input,
-  Button,
   ModalButton,
   AddCard,
   Title
 } from '../styled/section-styled';
+
+import { Button } from '../styled/card-styled';
 
 
 export default function Section(props) {
@@ -16,7 +17,6 @@ export default function Section(props) {
   const [showAdd, setShowAdd] = React.useState(false);
 
   function deleteCard(id){
-
       props.delFunc(id);
   }
 
@@ -32,11 +32,31 @@ export default function Section(props) {
     }
   }
 
+  function getLocaldata(id) {
+    let sections = ['todos', 'doing', 'done', 'later']
+    let data = JSON.parse(localStorage.getItem(sections[id]));
+    return data;
+  }
+
+  // download localStorage Data 
+  function DownloadData(e){
+    
+    let obj = getLocaldata(e.target.id);
+
+    const element = document.createElement("a");
+    const textFile = new Blob([JSON.stringify(obj)], {type: 'application/json'}); //pass data from localStorage API to blob
+    element.href = URL.createObjectURL(textFile);
+    element.download = `jsonFile[${e.target.id}].json`;
+    document.body.appendChild(element); 
+    element.click();
+  }
+
   return (
     <Container>
       <Title inputColor={props.hex} >
         <h2>{props.title}</h2>  
       </Title>
+      <Button id={props.id} onClick={DownloadData}>&#x2913; Download</Button>
       {
         props.list &&
         props.list.map((card, index )=> (
@@ -61,7 +81,7 @@ export default function Section(props) {
         showAdd && 
         <AddCard>
           <Input type="text" value={inputText} onChange={handleInput}/>
-          <Button onClick={handleSave}>Save Card</Button>
+          <Button onClick={handleSave}> Save Card</Button>
         </AddCard>
       }
     </Container>

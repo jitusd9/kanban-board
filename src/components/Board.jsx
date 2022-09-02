@@ -65,6 +65,7 @@ function Board(){
   }
 
   function changeParent(index,newlist){
+
     switch (index) {
       case 0:
         setTodos(newlist);
@@ -81,7 +82,7 @@ function Board(){
   }
 
   function handleMoveCard(parent, e){
-    
+
   }
 
   // button controls 

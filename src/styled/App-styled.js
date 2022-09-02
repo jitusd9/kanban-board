@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const Main = styled.div`
-  
 `
 
 const Input = styled.input`
@@ -24,9 +23,12 @@ const Header = styled.div`
 `
 
 const Container = styled.div`
+  position : relative;
   display: flex;
   flex-wrap : wrap;
   justify-content: center;
+  width : 100%;
+  overflow-x : auto;
 `
 
 const ThemeButton = styled.button`

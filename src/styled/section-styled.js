@@ -2,13 +2,26 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   position: relative;
-  width: 270px;
-  height: auto;
+  width: 310px;
+  max-height: 120vh;
   background-color: ${({theme}) => theme.boardBg};
   margin: 0.4rem;
   padding : 0.4rem;
   border-radius: 4px;
   border: 8px solid ${({theme}) => theme.boardBorder};
+  overflow-y: auto;
+  scroll-behavior : smooth;
+  ${'' /* &::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  }
+  &::-webkit-scrollbar-thumb {
+    width : 2px;
+    background-color: #6c6c6c;
+    border-radius : 5px;
+  } */}
 `
 const Input = styled.textarea`
   position : relative;
@@ -24,11 +37,11 @@ const Input = styled.textarea`
 const Button = styled.button`
   position: relative;
   border-radius: 3px;
-  border: 1px solid transparent;
-  color: #242526;
+  border : 1px solid ${({theme}) => theme.borderColor};
   margin: 1em;
   padding: 0.5em 1em;
-  background-color : #e3e3e3;
+  color : ${({theme}) => theme.cardFg};
+  background-color : transparent;
 `
 
 const ModalButton = styled(Button)`
@@ -36,7 +49,7 @@ const ModalButton = styled(Button)`
 `
 
 const Title = styled.div`
-  position : relative;
+  width : 100%;
   min-height : 60px;
   color : black;
   background-color: ${props => props.inputColor || '#fff'};
@@ -45,6 +58,8 @@ const Title = styled.div`
   display : flex;
   justify-content: center;
   align-items : center;
+  text-align : center;
+  position : relative;
 `
 
 const AddCard = styled(Title)`

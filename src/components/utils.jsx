@@ -1,14 +1,26 @@
-import { Button } from "../styled/card-styled";
+import { Button, Dialog } from "../styled/card-styled";
+
+
 
 function ControlButton(props){
 
   return(
-    <Button title="move to" id={props.cardId} onClick={(e) => {props.func(props.board,e)}}>
+    <Button title="move to" id={props.cardId} onClick={(e) => { props.func(props.board,e)}}>
       {props.txt}
     </Button>
   )
 }
 
+
+function DialogBox(props){
+  return(
+    <Dialog>
+      {
+        props.children
+      }
+    </Dialog>
+  )
+}
 
 function MoveCard(list, index){
   console.log('🏋️ Doing...', list[index])
@@ -24,4 +36,4 @@ function MoveCard(list, index){
 
 }
 
-export { MoveCard, ControlButton }
+export { MoveCard, ControlButton, DialogBox }
