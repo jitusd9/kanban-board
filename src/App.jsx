@@ -14,9 +14,14 @@ function getTheme(){
 function App() {
   let storedTheme = getTheme()
   const [theme, setTheme] = React.useState(storedTheme);
+  // const [flash, setFlash] = React.useState(false);
 
-  function toggleTheme(){
-    setTheme(!theme);
+  function toggleTheme(value){
+    setTheme(value);
+    // setFlash(true);
+    // setTimeout(() => {
+    //   setFlash(false);
+    // }, 1200);
   }
 
   React.useEffect(() => {
@@ -27,7 +32,11 @@ function App() {
     <ThemeProvider theme={theme ? light : dark}>
       <GlobalStyles />
       <Main>
-        <Heading toggleTheme={toggleTheme} />
+      {/* <canvas></canvas>
+        {
+          flash ? <Flash>Hurray 🎉</Flash> : null
+        } */}
+        <Heading toggleTheme={toggleTheme} theme={theme} />
         <Board />
       </Main>
     </ThemeProvider>

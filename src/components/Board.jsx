@@ -85,6 +85,10 @@ function Board(){
 
   }
 
+  function editCard(){
+    
+  }
+
   // button controls 
   function moveToDoing(parent, e){
     let newValues = MoveCard(boardArr[parent],e.target.id);

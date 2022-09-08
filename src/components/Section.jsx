@@ -1,20 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Card from './Card'
 import { 
   Container,
+  Header,
   Input,
   ModalButton,
   AddCard,
-  Title
+  Title,
+  List
 } from '../styled/section-styled';
+
+import successSound from "../assests/success-sound.mp3"
+
+import { CheckUrlsInParagraph } from './utils';
 
 import { Button } from '../styled/card-styled';
 
-
 export default function Section(props) {
+
+  const saveAudio = new Audio(successSound);
 
   const [inputText, setInput] = React.useState("");
   const [showAdd, setShowAdd] = React.useState(false);
+
+  function playIt(audio) {
+    audio.pause();
+    audio.currentTime = 0;
+    audio.play();
+  }
 
   function deleteCard(id){
       props.delFunc(id);
@@ -25,11 +38,11 @@ export default function Section(props) {
   }
 
   function handleSave(){
-    setInput("")
-    setShowAdd(false);
     if(inputText !== ""){
       props.addFunc({txt: inputText});
     }
+    setInput("")
+    setShowAdd(false);
   }
 
   function getLocaldata(id) {
@@ -49,30 +62,42 @@ export default function Section(props) {
     element.download = `jsonFile[${e.target.id}].json`;
     document.body.appendChild(element); 
     element.click();
+
   }
 
   return (
     <Container>
-      <Title inputColor={props.hex} >
+    <Header>
+    <Title inputColor={props.hex} >
         <h2>{props.title}</h2>  
       </Title>
-      <Button id={props.id} onClick={DownloadData}>&#x2913; Download</Button>
+    </Header>
+
+      {/* <Button id={props.id} onClick={DownloadData}>&#x2913; Download</Button> */}
+
+      <List>
       {
         props.list &&
-        props.list.map((card, index )=> (
-          <Card 
-            key={index} 
-            id={index} 
-            custom={ props.custom && props.custom } 
-            inputColor={props.hex} 
-            delFunc={deleteCard}
-            controls={props.controls}
-            board={props.id}
-          >
-            <p>{card.txt}</p>
-          </Card>
-        ))
+        props.list.map((card, index )=> {
+          
+          let textArray = CheckUrlsInParagraph(card.txt);
+
+          return(
+            <Card 
+              key={index} 
+              id={index} 
+              custom={ props.custom && props.custom } 
+              inputColor={props.hex} 
+              delFunc={deleteCard}
+              editFunc={props.addFunc}
+              controls={props.controls}
+              board={props.id}
+              text={textArray}
+            />
+          )
+        })
       }
+      </List>
       { 
         props.editable && !showAdd ?
         <ModalButton onClick={() => setShowAdd(!showAdd)}>➕</ModalButton> : null
@@ -81,7 +106,7 @@ export default function Section(props) {
         showAdd && 
         <AddCard>
           <Input type="text" value={inputText} onChange={handleInput}/>
-          <Button onClick={handleSave}> Save Card</Button>
+          <Button onClick={() =>{ playIt(saveAudio); handleSave();}}> Save Card</Button>
         </AddCard>
       }
     </Container>

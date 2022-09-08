@@ -2,28 +2,13 @@ import styled,{ keyframes } from "styled-components";
 
 const glow = keyframes`
   from {
-    box-shadow : 0 0 0 2px hsl(60deg,100%,50%)
+    background-color: hsl(180deg,10%,10%);
   }
 
   to {
-    box-shadow : 0 0 0 2px hsl(260deg,100%,50%)
+    background-color: hsl(300deg,10%,10%);
   }
 `;
-
-const Box = styled.div`
-  position : relative;
-  min-height : 60px;
-  color : black;
-  background-color: ${({theme}) => theme.cardBg};
-  margin-block: 0.4rem; 
-  box-shadow: 0px 4px 4px #50626f29;
-  border-radius : 4px;
-  border : 1px solid ${({theme}) => theme.borderColor};
-  transition : all 0.2s;
-  &:hover{
-    ${'' /* animation : ${glow} 5s linear alternate infinite;  */}
-  }
-`
 
 const Header = styled.div`
   position : relative;
@@ -36,6 +21,37 @@ const Header = styled.div`
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 `
+
+const Footer = styled(Header)`
+  text-align : left;
+  border-radius : 4px;
+  border-bottom : none;
+  border-top : 1px solid ${({theme}) => theme.borderColor};
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  padding : 0.2rem;
+  display : flex;
+  align-items : center;
+  justify-content : space-evenly;
+`
+
+
+const Box = styled.div`
+  position : relative;
+  min-height : 60px;
+  color : black;
+  background-color: ${({theme}) => theme.cardBg};
+  margin-block: 0.4rem; 
+  box-shadow: 0px 4px 4px #50626f29;
+  border-radius : 4px;
+  border : 1px solid ${({theme}) => theme.borderColor};
+
+  ${'' /* &:hover ${Header}{
+      animation : ${glow} 500ms alternate infinite; 
+  } */}
+`
+
+
 
 const Delete = styled.button`
   position: relative;
@@ -53,11 +69,11 @@ const Content = styled.div`
   position: relative;
   padding : 0.4rem;
   text-align: left;
-  color : ${({theme}) => theme.cardFg};
+  color : black;
   background-color : ${({theme}) => theme.cardBg};
 
   p{
-    margin-block : 0.5rem;
+    display : inline;
     ${'' /* they are literally just alternate names for each other. Some browsers support one and not the other */}
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -69,19 +85,14 @@ const Content = styled.div`
     hypens : auto;
   }
 
-`
+  a{
+    color : #03005f;
+    text-decoration : underline;
+  }
 
-const Footer = styled(Header)`
-  text-align : left;
-  border-radius : 4px;
-  border-bottom : none;
-  border-top : 1px solid ${({theme}) => theme.borderColor};
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
 `
 
 const Button = styled.button`
-  margin : 0.2rem;
   padding: 0.2rem 0.4rem;
   border-radius : 4px;
   color : ${({theme}) => theme.cardFg};

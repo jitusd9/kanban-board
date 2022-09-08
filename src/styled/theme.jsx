@@ -16,6 +16,7 @@ export const dark = {
   dialogFg : '#36374a',
   hoverFg : '#232425',
   hoverBg : '#f9f9f9',
+  scrollThumb : "#686868",
 }
 
 const MessGradient = css`
@@ -48,4 +49,5 @@ export const light = {
   dialogFg : '#f9f9f9',
   hoverFg : '#f9f9f9',
   hoverBg : '#3a3c43',
+  scrollThumb : "#c1c1c1",
 }

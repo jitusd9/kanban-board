@@ -38,6 +38,7 @@ body {
   justify-content: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x : hidden;
 }
 
 h1 {
@@ -63,6 +64,17 @@ button {
   padding: 0;
   box-sizing: border-box;
 }
+
+&::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.scrollThumb};
+    border-radius : 5px;
+  }
 
 `
 

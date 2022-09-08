@@ -2,27 +2,28 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   position: relative;
-  width: 310px;
-  max-height: 120vh;
+  width: 320px;
+  height: 580px;
   background-color: ${({theme}) => theme.boardBg};
   margin: 0.4rem;
   padding : 0.4rem;
   border-radius: 4px;
   border: 8px solid ${({theme}) => theme.boardBorder};
+`
+
+const Header = styled.div`
+  ${'' /* border : 1px solid blue; */}
+`
+
+const List = styled.div`
+  position : relative;
+  width: 100%;
+  height: 400px;
+  padding-inline : 0.2rem;
   overflow-y: auto;
   scroll-behavior : smooth;
-  ${'' /* &::-webkit-scrollbar {
-    width: 0.5em;
-  }
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  }
-  &::-webkit-scrollbar-thumb {
-    width : 2px;
-    background-color: #6c6c6c;
-    border-radius : 5px;
-  } */}
 `
+
 const Input = styled.textarea`
   position : relative;
   width : 100%;
@@ -72,9 +73,11 @@ const AddCard = styled(Title)`
 
 export {
   Container,
+  Header,
   Input,
   Button,
   ModalButton,
   AddCard,
-  Title
+  Title,
+  List
 }
