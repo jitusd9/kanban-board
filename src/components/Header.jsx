@@ -52,16 +52,6 @@ export default function Heading(props) {
           edit ? <Input ref={editRef} type="text" value={inputTxt} onChange={handleChange} onKeyDown={saveHeader} /> : 
           <h1 title="Double click and edit" onDoubleClick={editHeader}> { inputTxt !== "" ? inputTxt : "Kanban Board @jitendra"} </h1>
         }
-        <div>
-          
-          <ToggleSwitch>
-            <input type="radio" id="radio-one" onClick={() => props.toggleTheme(true)} name="switch-one" value="yes" {...checkLight}/>
-            <label htmlFor="radio-one">Light</label>
-            <input type="radio" id="radio-two" onClick={() => props.toggleTheme(false)} name="switch-one" value="no" {...checkDark}/>
-            <label htmlFor="radio-two">Dark</label>
-          </ToggleSwitch>
-
-        </div>
       </Header>
   )
 }

@@ -34,8 +34,8 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
+  ${'' /* display: flex; */}
+  ${'' /* justify-content: center; */}
   min-width: 320px;
   min-height: 100vh;
   overflow-x : hidden;

@@ -1,33 +1,9 @@
 import styled, {keyframes} from "styled-components";
 
-// const flashIt = keyframes`
-//   from {
-//     transform : translate(-50%, -50%) scale(1);
-//     opacity : 1;
-//   }
-
-//   to {
-//     transform : translate(-50%, -50%) scale(8);
-//     opacity : 0;
-//   }
-// `;
-
-// const Flash = styled.h1`
-//  font-size : 8em;
-//  color : ${({theme}) => theme.cardFg};
-//  position : absolute;
-//  top : 50%;
-//  left : 50%;
-//  transform : translate(-50%, -50%);
-//  z-index: 100;
-//  animation ${flashIt} 1200ms 1 ease;
-// `
-
-// const Canvas = styled.canvas`
-//   background : white;
-// `
 
 const Main = styled.div`
+  margin-top: 2rem;
+  width: 100%;
 `
 const Input = styled.input`
   font-size : 2.5em;
@@ -40,43 +16,60 @@ const Input = styled.input`
 
 const Header = styled.div`
   color : ${({theme}) => theme.headerFg};
-  background-color : ${({theme}) => theme.headerBg};
+  ${'' /* background-color : ${({theme}) => theme.headerBg}; */}
   padding : 1rem;
   border-radius: 4px;
-  display : flex;
-  align-items: center;
-  justify-content : center;
+  display: inline-block;
   h1{
     display : block;
-    flex : auto;
-  }
-  div{
-    width: 100px;
-    height : 100%;
-    display : flex;
-    align-items: center;
-    justify-content : center;
-    img{
-      padding : 0.2rem;
-      background-color : rgba(40,40,40,0.2);
-      border-radius : 50%;
-    }
   }
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    div{
-      align-items: center;
-      ${'' /* justify-content: flex-end; */}
-      width : 100%;
-      margin-top : 0.2rem;
-      img{
-        height: 20px;
-        width : 20px;
+`
+
+const Navpanel = styled.ul`
+  position: fixed;
+  top:0;
+  left: 50%;
+  transform: translate(-50%,0%);
+  list-style: none;
+  max-width : 500px;
+  min-height: 50px;
+  margin-inline: auto;
+  margin-block: 0;
+  display: flex;
+  align-items: strech;
+  background: linear-gradient(#222 80%, #444);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom: 1px solid #aaa;
+  overflow: hidden;
+  z-index: 1;
+  li{
+    flex: 1;
+    display : flex;
+    align-items: strech;
+    padding-inline: 1rem;
+    &:hover{
+      background-color: #333;
+      a{
+        color: #1ceea3;
       }
     }
+    a{
+      color: #a485f9;
+      width : 100%;
+      display : flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
+`
+
+const ThemeButton = styled.li`
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
 `
 
 
@@ -129,14 +122,10 @@ const Container = styled.div`
   overflow-x : auto;
 `
 
-const ThemeButton = styled.button`
-  font-size : 2em;
-  background-color : transparent;
-`
 
 const Icon = styled.img`
   height : 28px;
   width : 28px;
 `
 
-export {Main, Input, Header, Container, ThemeButton, Icon, ToggleSwitch}
+export {Main, Input, Header, Container, ThemeButton, Icon, ToggleSwitch, Navpanel}

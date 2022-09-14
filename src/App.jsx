@@ -1,10 +1,17 @@
 import React from "react"
-import { Main} from "./styled/app-styled";
-import Heading from "./components/Header";
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./styled/globalStyles";
 import { light, dark } from "./styled/theme";
-import Board from "./components/Board";
+
+import Landingpage from "./pages/Landingpage";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login"
+import Signup from "./pages/Signup";
+import Navbar from "./components/Navbar";
+import Reset from "./pages/Reset"
+import NotFound from "./pages/NotFound";
 
 function getTheme(){
   let storedTheme = localStorage.getItem('theme');
@@ -14,14 +21,9 @@ function getTheme(){
 function App() {
   let storedTheme = getTheme()
   const [theme, setTheme] = React.useState(storedTheme);
-  // const [flash, setFlash] = React.useState(false);
-
+  
   function toggleTheme(value){
     setTheme(value);
-    // setFlash(true);
-    // setTimeout(() => {
-    //   setFlash(false);
-    // }, 1200);
   }
 
   React.useEffect(() => {
@@ -31,14 +33,18 @@ function App() {
   return (
     <ThemeProvider theme={theme ? light : dark}>
       <GlobalStyles />
-      <Main>
-      {/* <canvas></canvas>
-        {
-          flash ? <Flash>Hurray 🎉</Flash> : null
-        } */}
-        <Heading toggleTheme={toggleTheme} theme={theme} />
-        <Board />
-      </Main>
+      <BrowserRouter>
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
+        <Routes>
+          <Route path="/" element={ <Landingpage /> }/>
+          <Route path="/dashboard" element={ <Dashboard /> }/>
+          <Route path="/login" element={ <Login /> }/>
+          <Route path="/signup" element={ <Signup /> }/>
+          <Route path="/reset" element={ <Reset /> }/>
+          <Route path="*" element={ <NotFound /> }/>
+        </Routes>
+      </BrowserRouter>
+
     </ThemeProvider>
   )
 }

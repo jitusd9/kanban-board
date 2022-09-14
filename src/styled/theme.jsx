@@ -2,6 +2,7 @@ import { css } from "styled-components"
 
 export const dark = {
   scheme : 'dark',
+  fg: '#f9f9f9',
   bg : '#242424',
   headerBg : '#3d4751',
   headerFg : '#cbcdcd',
@@ -35,6 +36,7 @@ const MessGradient = css`
 
 export const light = {
   scheme : 'light',
+  fg: '#242424',
   bg : MessGradient,
   headerBg : '#f9f9f9',
   headerFg : '#2f3841',
