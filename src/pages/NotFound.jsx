@@ -1,9 +1,14 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const FourOFour = styled.div`
+  margin-top: 4rem;
+`
 
 export default function NotFound() {
   return (
-    <div>
-      page not found
-    </div>
+    <FourOFour>
+      <h1>Page Not Found 😭</h1>
+    </FourOFour>
   )
 }

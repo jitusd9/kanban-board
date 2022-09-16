@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom'
-import { Container, Showcase, Welcome, Cta , TitleBar, Tab} from '../styled/landingpage-styled'
+import { Container, Welcome, Cta , TitleBar, Tab, Monitor} from '../styled/landingpage-styled'
 import { Laptop, BoardThumb, Notebook, Rocket, Trophy } from "../assests/3d"
 
 export default function Landingpage(props){
@@ -10,23 +10,22 @@ export default function Landingpage(props){
       <Welcome>
         <h1>Kanban Board</h1>
       </Welcome>
-      <Showcase>
-        <div>
-          <TitleBar>
-            <Tab> 🌏 Kanban : Your board</Tab>
-            <Tab> 🌏 New Tab</Tab>
-            <Tab> &#x271A; </Tab>
-          </TitleBar>
-          <img src={BoardThumb} alt="" />
-        </div>
+      <Monitor>
+        <TitleBar>
+          <Tab> 🌏 Kanban : Your board</Tab>
+          <Tab> 🌏 New Tab</Tab>
+          <Tab> &#x271A; </Tab>
+        </TitleBar>
         
-        <Cta>
-          <Link to="/login">   
-            Get started
-          </Link>
-        </Cta>
-   
-      </Showcase>
+        <img src={BoardThumb} alt="" />
+        
+        <Link to="/login">   
+          <Cta>
+            Get Started
+          </Cta>
+        </Link>
+        
+      </Monitor>
     </Container>
   )
 }

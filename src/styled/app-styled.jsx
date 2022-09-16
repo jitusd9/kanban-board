@@ -1,5 +1,4 @@
-import styled, {keyframes} from "styled-components";
-
+import styled, { keyframes } from "styled-components";
 
 const Main = styled.div`
   margin-top: 2rem;
@@ -28,40 +27,42 @@ const Header = styled.div`
 
 const Navpanel = styled.ul`
   position: fixed;
-  top:0;
+  top:0%;
   left: 50%;
   transform: translate(-50%,0%);
   list-style: none;
-  max-width : 500px;
+  max-width : 100%;
   min-height: 50px;
   margin-inline: auto;
   margin-block: 0;
   display: flex;
   align-items: strech;
-  background: linear-gradient(#222 80%, #444);
+  background-color: #62798f;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  border-bottom: 1px solid #aaa;
   overflow: hidden;
   z-index: 1;
+  a{
+      font-weight: bold;
+      color: #f9f9f9;
+      width : 100%;
+      display : flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+    }
   li{
     flex: 1;
     display : flex;
     align-items: strech;
     padding-inline: 1rem;
     &:hover{
-      background-color: #333;
+      background-color: white;
       a{
-        color: #1ceea3;
+        color: black;
       }
     }
-    a{
-      color: #a485f9;
-      width : 100%;
-      display : flex;
-      align-items: center;
-      justify-content: center;
-    }
+    
   }
 
 `
@@ -121,7 +122,6 @@ const Container = styled.div`
   width : 100%;
   overflow-x : auto;
 `
-
 
 const Icon = styled.img`
   height : 28px;

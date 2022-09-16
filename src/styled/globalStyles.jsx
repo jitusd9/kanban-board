@@ -4,15 +4,10 @@ import { createGlobalStyle, css } from "styled-components";
 export const GlobalStyles = createGlobalStyle`
 
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Nunito', sans-serif ;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 400;
-
-  color-scheme: ${(props) => props.theme.scheme };
-  color: rgba(255, 255, 255, 0.87);
-  background-color: ${(props) => props.theme.bg};
-
+  font-weight: 400;  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -34,11 +29,12 @@ a:hover {
 
 body {
   margin: 0;
-  ${'' /* display: flex; */}
-  ${'' /* justify-content: center; */}
   min-width: 320px;
   min-height: 100vh;
   overflow-x : hidden;
+  color-scheme: ${(props) => props.theme.scheme };
+  color: rgba(255, 255, 255, 0.87);
+  background-color: ${(props) => props.theme.bg};
 }
 
 h1 {
@@ -57,6 +53,7 @@ button {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+
 }
 
 *{

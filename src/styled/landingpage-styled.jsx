@@ -1,13 +1,10 @@
 import styled, { keyframes } from "styled-components";
 
 const Container = styled.div`
-  position: fixed;
-  top: 40px;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100vh;
+  height: auto;
 `
-
 
 const Welcome = styled.div`
   width: 90%;
@@ -18,10 +15,6 @@ const Welcome = styled.div`
     font-family: 'Righteous', sans-serif;
     font-size: 4em; 
     text-transform: capitalize;
-    margin : 0;
-    background: -webkit-linear-gradient(90deg, #222, #999);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   @media (max-width: 768px) {
@@ -38,13 +31,74 @@ const Welcome = styled.div`
 
 `
 
-const updown = keyframes`
-  from{
-    transform: translate3d(0,-10px,0) rotate(-3deg);
+const Monitor = styled.div`
+  position: relative;
+  border: 1.2rem solid black;
+  border-radius: 10px;
+  max-width: 800px;
+  height: auto;
+  margin-inline: auto;
+  color : ${({theme}) => theme.headerFg};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow:0 0.5px 0 white, 0 0.5px 1px white inset;
+  img{
+    position: relative;
+    z-index: -1;
   }
-  to{
-    transform: translate3d(0,10px,0) rotate(3deg);
+
+  &::after{
+    content: "";
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    height: 80px;
+    width: 100px;
+    background-color: black;
+    z-index: -1;
   }
+
+  &::before{
+    content: "";
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    height: 20px;
+    width: 300px;
+    background-color: black;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  a{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 4px;
+    display: flex;
+    align-items: strech;
+    justify-content: center;
+    border: none;
+    background-color: steelblue;
+
+    &:hover{
+      background-color: deepskyblue;
+    }
+  }
+  
+`
+
+const Cta = styled.button`
+  position : relative;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
 `
 
 const TitleBar = styled.div`
@@ -52,6 +106,7 @@ const TitleBar = styled.div`
   height: 2rem;
   background-color: #505364;
   display: flex;
+  z-index: -1;
   div:nth-child(1){
     margin-left: 4px;
     background : linear-gradient(90deg, #ff87aa, #ffa7a5);
@@ -81,44 +136,5 @@ const Tab = styled.div`
 
 `
 
-const Showcase = styled.div`
 
-  width: 100%;
-  margin-inline: auto;
-  color : ${({theme}) => theme.headerFg};
-  display: flex;
-  justify-content: center;
-  div{
-    img{
-      max-width: 100%;
-      height: auto;
-      box-shadow: 0 10px 10px rgba(0,0,0,0.4);
-    }
-  }
-`
-
-const Cta = styled.button`
-  width: auto;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color : transparent;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
-  a{
-    border-radius: 4px;
-    padding: 0.5rem 1.5rem;
-    font-size: 2rem;
-    text-shadow: 0 2px 0px rgba(0,0,0,0.5);
-    font-weight: bold;
-    color: #f9f9f9;
-    background-color: slateblue;
-      &:hover{
-      color: slateblue;
-      background-color: #f9f9f9;
-      text-shadow:none;
-    }
-  }
-  
-`
-
-export { Container, Welcome, Showcase, Cta, TitleBar, Tab }
+export { Container, Welcome, Cta, TitleBar, Tab, Monitor }
