@@ -3,8 +3,8 @@ import { Button, Dialog } from "../styled/card-styled";
 function ControlButton(props){
 
   return(
-    <Button title="move to" id={props.cardId} onClick={(e) => { props.func(props.board,e)}}>
-      {props.txt}
+    <Button title="move to" id={props.cardId} onClick={(e) => { props.func(props.section,e)}}>
+      move to ➡️{props.children}
     </Button>
   )
 }

@@ -43,10 +43,11 @@ h1 {
 }
 
 button {
-  border: 1px solid transparent;
+  border: 1px solid #333;
   font-family: inherit;
   cursor: pointer;
   transition: background 0.25s;
+  padding: 0.4rem 0.8rem;
 }
 
 #root {

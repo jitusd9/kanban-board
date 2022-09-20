@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const Container = styled.div`
   position: relative;
   width: 320px;
-  height: 580px;
+  height: auto;
   background-color: ${({theme}) => theme.boardBg};
   margin: 0.4rem;
   padding : 0.4rem;
@@ -18,7 +18,7 @@ const Header = styled.div`
 const List = styled.div`
   position : relative;
   width: 100%;
-  height: 400px;
+  max-height: 400px;
   padding-inline : 0.2rem;
   overflow-y: auto;
   scroll-behavior : smooth;
@@ -49,11 +49,19 @@ const ModalButton = styled(Button)`
   margin : 0.5rem;
 `
 
+export const Placeholder = styled.p` 
+  position: absolute;
+  top : 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #aaa;
+`
+
 const Title = styled.div`
   width : 100%;
   min-height : 60px;
-  color : black;
-  background-color: ${props => props.inputColor || '#fff'};
+  color : white;
+  background-color: ${props => props.inputColor || '#2d2d2d'};
   box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
   border-radius : 4px;
   display : flex;
@@ -61,6 +69,46 @@ const Title = styled.div`
   align-items : center;
   text-align : center;
   position : relative;
+`
+export const DeleteButton = styled.button`
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  transform: translate(-50%, 50%);
+  border-color: transparent;
+  background-color : #ff5252;
+  padding: 0;
+  width : 16px;
+  height : 16px;
+  color : white;
+  font-weight : bold;
+  border-radius: 50%;
+`
+
+export const DialogBox = styled.div` 
+  position: absolute;
+  top: 150px;
+  width: calc(300px - 0.8rem);
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.8);
+  border-radius: 4px;
+  padding: 1rem;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  z-index: 1;
+  span{
+    font-size: 1.1rem;
+    color: #ffb02f;
+  }
+  button{
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    margin-inline: 4px;
+  }
+  button:first-of-type{
+    color: white;
+    background-color: red;
+  }
 `
 
 const AddCard = styled(Title)`

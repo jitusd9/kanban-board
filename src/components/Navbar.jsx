@@ -7,7 +7,6 @@ export default function Navbar(props) {
 
   const { currentUser, logout } = useAuth();
 
-
   return (
     <Navpanel>
       <li>

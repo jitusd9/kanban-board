@@ -1,7 +1,8 @@
 import React from "react";
 import {Link} from 'react-router-dom'
-import { Container, Welcome, Cta , TitleBar, Tab, Monitor} from '../styled/landingpage-styled'
+import { Container, Welcome,Links, Cta , TitleBar, Tab, Monitor} from '../styled/landingpage-styled'
 import { Laptop, BoardThumb, Notebook, Rocket, Trophy } from "../assests/3d"
+import thumbVideo from "../assests/screen.mp4"
 
 export default function Landingpage(props){
 
@@ -17,13 +18,20 @@ export default function Landingpage(props){
           <Tab> &#x271A; </Tab>
         </TitleBar>
         
-        <img src={BoardThumb} alt="" />
+        <video src={thumbVideo} autoPlay loop></video>
         
-        <Link to="/login">   
-          <Cta>
-            Get Started
-          </Cta>
-        </Link>
+        <Links>
+          <Link to="/login">   
+            <Cta>
+              Get Started with Login
+            </Cta>
+          </Link>
+          <a target="_blank" href="https://stickrr.netlify.app/">   
+            <Cta>
+              Check no Login version
+            </Cta>
+          </a>
+        </Links>
         
       </Monitor>
     </Container>

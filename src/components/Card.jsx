@@ -1,39 +1,42 @@
-import React from 'react'
-import { Box, Header, Delete, Content, Footer, Button, YesNoBox } from '../styled/card-styled'
+import React,{useState} from 'react'
+import { Box, Header, Delete, Content, Footer, Button, YesNoBox,MoveCard } from '../styled/card-styled'
 import { Input } from '../styled/section-styled';
 import { ControlButton, DialogBox } from './utils'
-import clickSound from "../assests/click-sound.mp3"
-import deleteSound from "../assests/success-sound.mp3"
+import { deleteCard, moveCard } from '../utils/DatabaseOperations';
+import { useAuth } from '../context/AuthContext';
+import { useEffect } from 'react';
+
 
 export default function Card(props) {
 
-  const clickAudio = new Audio(clickSound);
-  const deleteAudio = new Audio(deleteSound);
+  const { currentUser } = useAuth();
+  const [info, toggleInfo] = useState(false);
+  const [confirm, askConfirm] = useState(false);
+  const [move, setMove] = useState(props.option && props.options[0].section_id);
 
-  const [info, toggleInfo] = React.useState(false);
-  const [confirm, askConfirm] = React.useState(false);
-  const [edit, setEdit] = React.useState(false);
-  const [inputText, setText] = React.useState("");
 
-  function showInfo(){
-    toggleInfo(!info);
+  function handleMove(){
+
+    if(move !== null){
+      moveCard(currentUser.uid, props.sectionId, parseInt(move, 10), props.id);
+    }
   }
 
   function DeleteIt(){
     askConfirm(false);
-    props.delFunc(props.id);
+    deleteCard(currentUser.uid ,props.id);
   }
 
-  function playIt(audio){
-    audio.pause();
-    audio.currentTime = 0;
-    audio.play();
-  }
 
   return (
-    <Box inputColor={props.inputColor} >
+    <Box 
+    inputColor={props.inputColor} 
+    draggable
+    
+    >
 
-      <Header inputColor={props.inputColor} onClick={() => playIt(clickAudio)}>
+      <Header inputColor={props.inputColor}>
+        <p>{props.created}</p>
         <Delete title='Delete Task' onClick={() => askConfirm(!confirm)}>&#xd7;</Delete>
       </Header>
 
@@ -41,7 +44,7 @@ export default function Card(props) {
         {
           confirm ? <YesNoBox> 
           <p>Are you sure?</p>
-          <Button onClick={() => { playIt(deleteAudio); DeleteIt(); }}>Yes</Button> 
+          <Button onClick={() =>  DeleteIt() }>Yes</Button> 
           <Button onClick={() => askConfirm(!confirm)}>No</Button> 
           </YesNoBox> : null
         }
@@ -55,7 +58,11 @@ export default function Card(props) {
               )
             }else{
               return(
-                <a key={index} href={`https://${textObj.text}`} target="_blank">click here</a>
+                <a key={index} href={`https://${textObj.text}`} target="_blank">
+                  {
+                    `${textObj.text.substring(0,10)}...`
+                  }
+                </a>
               )
             }
           })
@@ -64,45 +71,26 @@ export default function Card(props) {
       </Content>
 
       <Footer>
-       
-        <ControlButton 
-          txt={!props.custom ? "🏋️ Doing" : "📝 Todo"} 
-          func={props.controls[0]}
-          cardId={props.id}
-          board={props.board}
-        />
+        <MoveCard>
+          <p>Move to ➡️</p>
+          <select 
+            name="sections" 
+            value={move}
+            onChange={(e) => setMove(e.target.value)}
+          >
+            {
+              props.options.map(btn => {
 
-        <ControlButton
-          txt={ props.custom === "done" ? "🏋️ Doing" : "✅ Done" }
-          func={props.controls[1]}
-          cardId={props.id}
-          board={props.board}
-        />
-       
-        <ControlButton
-          txt={ props.custom === "later" ? "🏋️ Doing" : "📂 Later" }
-          func={props.controls[2]}
-          cardId={props.id}
-          board={props.board}
-        />
-        
-        {
-          info ? <DialogBox> 
-            <p>Modified : 01/09/2022 6:07:36</p>
-            <p>Created : 01/09/2022 6:06:15</p>
-           </DialogBox> : null
-        }
-
-        <ControlButton
-          txt={"ℹ️"}
-          func={showInfo}
-          cardId={props.id}
-          board={props.board}
-        />
-
+                  return(
+                    <option value={btn.section_id}>{btn.section_name}</option>
+                  )
+              })
+            }
+          </select>
+          <button type="submit" onClick={handleMove}>move</button>
+        </MoveCard>
       </Footer>
       
-
     </Box>
   )
 }

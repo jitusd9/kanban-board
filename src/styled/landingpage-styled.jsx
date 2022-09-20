@@ -72,33 +72,39 @@ const Monitor = styled.div`
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
-
-  a{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    border-radius: 4px;
-    display: flex;
-    align-items: strech;
-    justify-content: center;
-    border: none;
-    background-color: steelblue;
-
-    &:hover{
-      background-color: deepskyblue;
-    }
-  }
   
+`
+
+export const Links = styled.div` 
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding : 0.5rem;
 `
 
 const Cta = styled.button`
   position : relative;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: white;
   padding: 0.5rem 1rem;
+  margin: 0.5rem;
   background-color: transparent;
+  border-radius: 4px;
+  border: none;
+  background: linear-gradient(45deg, #7652fb, #12fdf6);
+  box-shadow: 0 10px 10px -5px rgba(0,0,0,0.5);
+  text-shadow: 0 4px 4px rgba(0,0,0,0.3);
+  &:hover{
+    background: linear-gradient(45deg, #7652fb, #12fdf6);
+  }
 `
 
 const TitleBar = styled.div`

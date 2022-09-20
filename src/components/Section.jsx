@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import { 
   Container,
@@ -7,27 +7,31 @@ import {
   ModalButton,
   AddCard,
   Title,
-  List
+  List,
+  DeleteButton,
+  DialogBox,
+  Placeholder
 } from '../styled/section-styled';
 
-import successSound from "../assests/success-sound.mp3"
-
 import { CheckUrlsInParagraph } from './utils';
+import { Button, Delete } from '../styled/card-styled';
+import { insertCard, getCards,deleteSection } from '../utils/DatabaseOperations';
+import { useAuth } from '../context/AuthContext';
 
-import { Button } from '../styled/card-styled';
+import { doc, collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { db } from '../utils/init-firebase';
+import Loader from './Loader';
 
 export default function Section(props) {
 
-  const saveAudio = new Audio(successSound);
-
-  const [inputText, setInput] = React.useState("");
-  const [showAdd, setShowAdd] = React.useState(false);
-
-  function playIt(audio) {
-    audio.pause();
-    audio.currentTime = 0;
-    audio.play();
-  }
+  const { currentUser } = useAuth();
+  
+  const [loading, setLoading] = useState(false);
+  const [inputText, setInput] = useState("");
+  const [showAdd, setShowAdd] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const [cards, setCards] = useState([]);
+  const [btnFunctions,setBtnFunctions] = useState([]);
 
   function deleteCard(id){
       props.delFunc(id);
@@ -37,67 +41,113 @@ export default function Section(props) {
     setInput(e.target.value);
   }
 
+  function askConfirm(){
+    setConfirm(!confirm);
+  }
+
+  function deleteColumn() {
+    console.log('Deleting...')
+    setConfirm(false);
+    deleteSection( currentUser.uid ,props.id)
+  }
+
   function handleSave(){
     if(inputText !== ""){
-      props.addFunc({txt: inputText});
+      insertCard(currentUser.uid ,inputText, 0, props.id, currentUser.uid)
+      .then(res => {}).catch(err => console.log(err))
     }
     setInput("")
     setShowAdd(false);
   }
 
-  function getLocaldata(id) {
-    let sections = ['todos', 'doing', 'done', 'later']
-    let data = JSON.parse(localStorage.getItem(sections[id]));
-    return data;
+  async function fetchUserCards(uid){
+    const data = await getCards(uid);
+    cardsChanged(data);
+    setLoading(false);
   }
 
-  // download localStorage Data 
-  function DownloadData(e){
-    
-    let obj = getLocaldata(e.target.id);
-
-    const element = document.createElement("a");
-    const textFile = new Blob([JSON.stringify(obj)], {type: 'application/json'}); //pass data from localStorage API to blob
-    element.href = URL.createObjectURL(textFile);
-    element.download = `jsonFile[${e.target.id}].json`;
-    document.body.appendChild(element); 
-    element.click();
-
+  function buttonsForCards() {  
+    let btns = props.options.filter(btn => btn.section_id !== props.id)
+    setBtnFunctions(btns);
   }
+
+  function cardsChanged(data){
+    let filteredCard = data.filter(card => {
+      return card.data.section_id === props.id
+    })
+    setCards(filteredCard);
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    fetchUserCards(currentUser.uid);
+    buttonsForCards();
+  },[])
+
+  useEffect(() => {
+
+    const userRef = doc(db, 'users', currentUser.uid);
+    const q = query(collection(userRef, 'cards'), orderBy("created", "asc"))
+    const unsubscribe = onSnapshot(q, snapshot => {
+      let newCards = [];
+      snapshot.forEach(doc => {
+       newCards.push({
+         id: doc.id,
+         data: doc.data()
+        })
+      })
+      cardsChanged(newCards)
+    })
+
+    return () => {
+      unsubscribe();
+    }
+
+  },[])
 
   return (
     <Container>
     <Header>
-    <Title inputColor={props.hex} >
-        <h2>{props.title}</h2>  
+      <Title inputColor={props.bg} >
+        <h2>{props.title}</h2> 
+        <DeleteButton title='Delete Column' onClick={askConfirm}>&#xd7;</DeleteButton>
       </Title>
     </Header>
-
-      {/* <Button id={props.id} onClick={DownloadData}>&#x2913; Download</Button> */}
-
-      <List>
-      {
-        props.list &&
-        props.list.map((card, index )=> {
-          
-          let textArray = CheckUrlsInParagraph(card.txt);
-
+    {
+      confirm ? 
+      <DialogBox>
+        <p> <span>⚠️Are you sure?</span> <br /> You will loose entire section data!</p>
+        <button onClick={deleteColumn}>Yes</button>
+        <button  onClick={() => {setConfirm(false)}}>No</button>
+      </DialogBox> 
+      : null
+    }
+    <List>
+      { 
+        loading ? <Loader /> : cards.length === 0 ? <Placeholder>Nothing to Display</Placeholder> :
+        cards.map((card, index )=> {
+          let textArray = CheckUrlsInParagraph(card.data.content);
+          let dateObj = card.data.created?.toDate();
+          let time = dateObj?.toLocaleString();
           return(
             <Card 
               key={index} 
-              id={index} 
+              id={card.id} 
               custom={ props.custom && props.custom } 
               inputColor={props.hex} 
               delFunc={deleteCard}
               editFunc={props.addFunc}
               controls={props.controls}
-              board={props.id}
+              sectionId={card.data.section_id}
+              sectionName={props.title}
               text={textArray}
+              created={time}
+              options={btnFunctions}
             />
           )
         })
       }
-      </List>
+    </List>
       { 
         props.editable && !showAdd ?
         <ModalButton onClick={() => setShowAdd(!showAdd)}>➕</ModalButton> : null
@@ -106,7 +156,7 @@ export default function Section(props) {
         showAdd && 
         <AddCard>
           <Input type="text" value={inputText} onChange={handleInput}/>
-          <Button onClick={() =>{ playIt(saveAudio); handleSave();}}> Save Card</Button>
+          <Button onClick={() =>{ handleSave()}}> Save Card</Button>
         </AddCard>
       }
     </Container>

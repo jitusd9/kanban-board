@@ -14,12 +14,19 @@ const Header = styled.div`
   position : relative;
   color : ${({theme}) => theme.titleFg};
   background-color : ${({theme}) => theme.titleBg};
-  text-align: right;
-  padding : 0.1rem 0.2rem;
+  text-align: left;
+  min-height: 30px;
+  padding : 0.2rem;
   border-bottom : 1px solid ${({theme}) => theme.borderColor};
   border-radius : 4px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
+  display:flex;
+  align-items: center;
+  p{
+    font-size: 0.8rem;
+    color: #777;
+  }
 `
 
 const Footer = styled(Header)`
@@ -39,10 +46,9 @@ const Footer = styled(Header)`
 const Box = styled.div`
   position : relative;
   min-height : 60px;
-  color : black;
   background-color: ${({theme}) => theme.cardBg};
-  margin-block: 0.4rem; 
-  box-shadow: 0px 4px 4px #50626f29;
+  margin-block: 0.5rem; 
+  box-shadow: 0px 4px 4px  ${({theme}) => theme.cardShadow};
   border-radius : 4px;
   border : 1px solid ${({theme}) => theme.borderColor};
 
@@ -54,22 +60,28 @@ const Box = styled.div`
 
 
 const Delete = styled.button`
-  position: relative;
-  background-color : #ff7d7d;
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  transform: translate(-50%,50%);
+  background-color : #ff5252;
   padding: 0;
   width : 16px;
   height : 16px;
   color : white;
   font-weight : bold;
   border-radius: 50%;
-  filter : none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
 `
 
 const Content = styled.div`
   position: relative;
   padding : 0.4rem;
   text-align: left;
-  color : black;
+  color : ${({theme}) => theme.fg};
   background-color : ${({theme}) => theme.cardBg};
 
   p{
@@ -86,7 +98,7 @@ const Content = styled.div`
   }
 
   a{
-    color : #03005f;
+    color : #535bf2;;
     text-decoration : underline;
   }
 
@@ -99,11 +111,41 @@ const Button = styled.button`
   background-color : transparent;
   border : 1px solid ${({theme}) => theme.borderColor};
   &:hover{
-    ${'' /* color : #232425;
-    background-color: #f9f9f9; */}
     color : ${({theme}) => theme.hoverFg};
     background-color : ${({theme}) => theme.hoverBg};
   }
+`
+
+export const MoveCard = styled.div` 
+  width: 100%;
+  padding: 0.2rem 0.4rem;
+  border-radius : 4px;
+  border : 1px solid ${({theme}) => theme.borderColor};
+  display: flex;
+  align-items: strech;
+  justify-content: space-evenly;
+  select{
+    border-color: red;
+    border-radius: 2px;
+    color : ${({theme}) => theme.titleFg};
+    background-color : transparent;
+    border : 1px solid ${({theme}) => theme.borderColor};
+  }
+  p{
+    color : ${({theme}) => theme.titleFg};
+  }
+  button{
+    border-radius: 2px;
+    color : ${({theme}) => theme.titleFg};
+    background-color : transparent;
+    border : 1px solid ${({theme}) => theme.borderColor};
+    padding: 0.1rem 0.4rem;
+    &:hover{
+      color : ${({theme}) => theme.hoverFg};
+      background-color : ${({theme}) => theme.hoverBg};
+    }
+  }
+
 `
 
 const YesNoBox = styled.div` 

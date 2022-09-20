@@ -4,6 +4,7 @@ import { Laptop } from '../assests/3d'
 import { useAuth } from '../context/AuthContext'
 import useMounted from '../hooks/useMounted'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { addUserToDatabase } from '../utils/DatabaseOperations'
 
 
 export default function Register() {
@@ -39,6 +40,7 @@ export default function Register() {
           setIsSubmitting(true);
           register(email,password)
             .then(response => {
+              addUserToDatabase(response.user.uid);
               navigate(location.state?.from ?? '/dashboard', {replace: true});
             })
             .catch(error => {
@@ -88,7 +90,10 @@ export default function Register() {
       <GoogleButton
         onClick={async e => {
           signInWithGoogle()
-            .then(user => console.log(user))
+            .then(response => {
+              console.log(response)
+              addUserToDatabase(response.user.uid);
+            })
             .catch(error => console.log(error))
         }}
         >

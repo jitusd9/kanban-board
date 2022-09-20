@@ -11,7 +11,6 @@ import Login from "./pages/Login"
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import NotFound from "./pages/NotFound";
-import ProtectedPage from "./pages/ProtectedPage";
 import AuthContextProvider, { useAuth } from "./context/AuthContext";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -42,10 +41,6 @@ export default function App() {
         <Navbar theme={theme} toggleTheme={toggleTheme} />
           <Routes>
             <Route path="/" element={ <Landingpage /> }/>
-            <Route path="/protected" element={
-              <RequireAuth>
-                <ProtectedPage />
-              </RequireAuth>  }/>
             <Route path="/dashboard" element={ 
               <RequireAuth>
                 <Dashboard />
