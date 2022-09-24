@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from 'react-router-dom'
 import { Container, Welcome,Links, Cta , Monitor} from '../styled/landingpage-styled'
-import dashboardImg from "../assests/dashboard.jpg"
+import dashboardImg from "../assests/dashboard.webp"
 
 export default function Landingpage(props){
 
