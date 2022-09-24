@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Form, ImageContainer, Container, GoogleButton, Toast, Loader } from '../styled/Login-styled'
 import {Link} from 'react-router-dom'
-import { Lock } from '../assests/3d'
+
 import { useAuth } from '../context/AuthContext';
 import useMounted from '../hooks/useMounted';
 
@@ -43,7 +43,7 @@ export default function ForgotPassword() {
             .finally(() => mounted.current && setIsSubmitting(false))
         }}>
         <ImageContainer>
-          <img src={Lock} alt="Avatar" />
+
           </ImageContainer>
 
             <label htmlFor="email">Enter Registered email id</label>

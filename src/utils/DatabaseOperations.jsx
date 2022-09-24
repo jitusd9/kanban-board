@@ -142,7 +142,7 @@ export async function deleteSection(uid, id){
 }
 
 export async function moveCard(uid, sectionTo, card_id){
-  console.log(typeof sectionTo, typeof card_id)
+  
   updateCard(uid, card_id, sectionTo);
 
 }

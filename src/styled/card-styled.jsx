@@ -110,38 +110,6 @@ const Button = styled.button`
   }
 `
 
-export const MoveCard = styled.div` 
-  width: 100%;
-  padding: 0.2rem 0.4rem;
-  border-radius : 4px;
-  border : 1px solid ${({theme}) => theme.borderColor};
-  display: flex;
-  align-items: strech;
-  justify-content: space-evenly;
-  select{
-    border-color: red;
-    border-radius: 2px;
-    color : ${({theme}) => theme.titleFg};
-    background-color : transparent;
-    border : 1px solid ${({theme}) => theme.borderColor};
-  }
-  p{
-    color : ${({theme}) => theme.titleFg};
-  }
-  button{
-    border-radius: 2px;
-    color : ${({theme}) => theme.titleFg};
-    background-color : transparent;
-    border : 1px solid ${({theme}) => theme.borderColor};
-    padding: 0.1rem 0.4rem;
-    &:hover{
-      color : ${({theme}) => theme.hoverFg};
-      background-color : ${({theme}) => theme.hoverBg};
-    }
-  }
-
-`
-
 const YesNoBox = styled.div` 
   position : absolute;
   top : 50%;
@@ -152,11 +120,23 @@ const YesNoBox = styled.div`
   background-color :  #1d242a;
   border-radius : 4px;
   z-index:1;
-  button{
-    color : #e3e3e3;
-    border-color : #595959;
+  div{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    button{
+      border-radius : 2px;
+      color : #fff;
+      border: none;
+      background-color: #ff5252;
+    }
+    button:nth-child(2){
+      background-color: green;
+      &:hover{
+        background-color: #333;
+      }
+    }
   }
-
 `
 
 const Dialog = styled.div`

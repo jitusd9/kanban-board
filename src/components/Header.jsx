@@ -1,8 +1,5 @@
 import React,{useState, useRef} from 'react'
 import {  Header, Input, Icon, ToggleSwitch } from "../styled/app-styled";
-import { lightIcon, darkIcon } from "../assests"
-
-
 
 function getLocalHeading(){
   const heading = localStorage.getItem("heading");

@@ -8,8 +8,6 @@ const Container = styled.div`
   margin-inline: auto;
   margin-top: 50px;
   pointer-events: ${(props) => props.loading === 'true' ? 'none': 'all'};
-  ${'' /* opacity: ${(props) => props.loading === 'true'? '0.9': '1'};
-  filter: ${(props) => props.loading === 'true'? 'blur(2px)' : 'blur(0)'}; */}
   border-radius: 8px;
   border-bottom: 1px solid #7c7c7c;
 `

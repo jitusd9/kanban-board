@@ -43,7 +43,6 @@ export const dark = {
   monitorShade: '0 0 50px rgba(75,75,125,0.7)',
   svgStroke: '#fff',
   navbarBg,
-  navGrad : 'linear-gradient(45deg,#08b17a,hsl(212deg 92% 20%))',
   navGrad : 'linear-gradient(45deg,hsl(160deg 89% 4% / 90%),hsl(212deg 92% 20% / 93%))',
   boardBg : '#151515',
   boardBorder : '#2d2d2d',

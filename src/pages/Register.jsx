@@ -1,6 +1,5 @@
 import React,{ useState } from 'react'
 import { Form, ImageContainer, Container, Loader, Toast, GoogleButton, Links } from '../styled/Login-styled'
-import { Laptop } from '../assests/3d'
 import { useAuth } from '../context/AuthContext'
 import useMounted from '../hooks/useMounted'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -54,9 +53,7 @@ export default function Register() {
         loading={isSubmitting ? 'true' : 'false'}
       >
         <div className="loader">  </div>
-        <ImageContainer>
-        <img src={Laptop} alt="Avatar" />
-        </ImageContainer>
+
         <h2>Create a new Account</h2>
 
           <label htmlFor="psw">Email</label>

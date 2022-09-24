@@ -1,7 +1,6 @@
 import React from 'react'
 import { Form, ImageContainer, Container } from '../styled/Login-styled'
 import {Link, useLocation, useNavigate} from 'react-router-dom'
-import { Rocket } from '../assests/3d'
 import { useAuth } from '../context/AuthContext'
 import { useState } from 'react'
 
@@ -29,10 +28,6 @@ export default function ResetPassword() {
         })
         .catch(error => console.log(error))
       }}>
-      <ImageContainer>
-        <img src={Rocket} alt="Avatar" />
-
-        </ImageContainer>
 
         <label htmlFor="email">Enter New Password</label>
         <input 

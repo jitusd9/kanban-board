@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import { Main, MobileNav } from '../styled/app-styled'
+import { Main } from '../styled/app-styled'
 import Loader from '../components/Loader'
-import Heading from '../components/Header'
-import Board from '../components/Board'
-import { getUserData, getCards } from '../utils/DatabaseOperations'
+import { getUserData } from '../utils/DatabaseOperations'
 import { useAuth } from '../context/AuthContext'
 import { Container } from '../styled/app-styled'
 import Section from '../components/Section'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '../utils/init-firebase'
-import Sidebar from '../components/Sidebar'
 
 
 export default function Dashboard(props) {

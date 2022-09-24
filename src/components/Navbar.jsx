@@ -11,7 +11,7 @@ export default function Navbar(props) {
   const { currentUser, logout } = useAuth();
   const location = useLocation();
   const [mobileNav, setMobileNav] = useState(false);
-  console.log(props.theme)
+
   return (
     <>  
         {

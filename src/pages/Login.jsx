@@ -3,7 +3,6 @@ import { Form, ImageContainer, Container, Loader, Toast, GoogleButton, Links } f
 import {Link, useNavigate, useLocation} from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import useMounted from '../hooks/useMounted'
-import { KeyIcon } from '../assests/3d'
 
 export default function Login() {
 
@@ -16,7 +15,6 @@ export default function Login() {
   const [isError, setIsError] = useState(false);
   const { login, signInWithGoogle }  = useAuth();
   const mounted = useMounted();
-
 
   return (
     <>
@@ -53,7 +51,6 @@ export default function Login() {
         }}
         >
         <ImageContainer>
-        <img src={KeyIcon} alt="Avatar" />
         </ImageContainer>
         <h2>Login</h2>
         <label htmlFor="uname">Email</label>
