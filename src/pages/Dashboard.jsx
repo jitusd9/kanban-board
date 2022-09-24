@@ -47,27 +47,32 @@ export default function Dashboard(props) {
 
   useEffect(() => {
 
-    const userRef = doc(db, 'users', currentUser.uid);
+    if(currentUser !== null){
+      const userRef = doc(db, 'users', currentUser.uid);
 
-    const unsubscribe = onSnapshot(userRef, doc => {
-     if(doc.exists()){
-      let sectionArray = [];
-      let sectionsObj = doc.data().sections
-      for (const key in sectionsObj) {
-        if (Object.hasOwnProperty.call(sectionsObj, key)) {
-          const element = sectionsObj[key];
-          sectionArray.push(element)
+      const unsubscribe = onSnapshot(userRef, doc => {
+      if(doc.exists()){
+        let sectionArray = [];
+        let sectionsObj = doc.data().sections
+        for (const key in sectionsObj) {
+          if (Object.hasOwnProperty.call(sectionsObj, key)) {
+            const element = sectionsObj[key];
+            sectionArray.push(element)
+          }
         }
-      }
-      sectionArray.sort((a,b) => a.section_id - b.section_id)
-      sectionArray.length === 0 ? setMessage('Nothing to show') : setMessage(null);
-      setSections(sectionArray);
-      }
-    })
+        sectionArray.sort((a,b) => a.section_id - b.section_id)
+        sectionArray.length === 0 ? setMessage('Nothing to show') : setMessage(null);
+        setSections(sectionArray);
+        }
+      })
 
-    return () => {
-      unsubscribe();
+      return () => {
+        unsubscribe();
+      }
+
     }
+
+   
 
   },[])
   
