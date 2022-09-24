@@ -15,7 +15,7 @@ import {
 
 import { createSection } from '../utils/DatabaseOperations';
 
-export default function Sidebar() {
+export default function Sidebar(props) {
 
   const { currentUser } = useAuth();
   const [collapse, setCollapse] = useState(false);
@@ -42,14 +42,17 @@ export default function Sidebar() {
 
 
   return (
-    <FixedContainer collapse={collapse}>
-      <Header collapse={collapse}>
+    <FixedContainer collapse={collapse} mobile={props.mobile}>
+      <Header collapse={collapse} mobile={props.mobile}>
+       {
+        collapse || props.mobile ? <h4> {currentUser.email}</h4> :
         <Icon> 🔧 </Icon>
-        <h4> {currentUser.email}</h4>
+       }
       </Header>
       <ToggleButton 
         data-description="Add column"
         collapse={collapse} 
+        mobile={props.mobile}
         onClick={collapse ? 
         () => setToggleForm(!toggleForm) : 
         () => {setCollapse(!collapse); setToggleForm(!toggleForm);}}
@@ -57,7 +60,10 @@ export default function Sidebar() {
         <Icon>🗃️</Icon> 
         <p>Insert Section</p> 
       </ToggleButton>
-      <SectionForm collapse={toggleForm}  onSubmit={async (e) => {
+      <SectionForm 
+      collapse={toggleForm} 
+      mobile={toggleForm && props.mobile} 
+      onSubmit={async (e) => {
         e.preventDefault();
         handleForm();
       }}>
@@ -93,6 +99,7 @@ export default function Sidebar() {
       <ToggleButton 
       data-description="Menu"
       collapse={collapse} 
+      mobile={props.mobile}
       onClick={() => {setCollapse(!collapse); setToggleForm(false)}}>
         {
           collapse ? <Icon>⬅️</Icon> : <Icon>➡️</Icon>

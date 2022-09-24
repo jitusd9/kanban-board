@@ -7,16 +7,17 @@ export const FixedContainer = styled.div`
   width: ${(props => props.collapse ? '300px' : '70px')};
   height: 100vh;
   padding: 0.4rem;
-  background-color: hsla(236,32%,20%,0.9);
-  backdrop-filter: blur(4px);
+  padding-top : 60px;
+  background: ${({theme}) => theme.navGrad};
   z-index: 1;
   transition: width 0.3s;
-  & *{
+  &*{
     border-radius: 3px;
   }
 
   @media (max-width: 768px) {
-    transform: translateX(-70px);
+    width: ${(props => props.mobile ? '300px' : '70px')};
+    transform: ${(props => props.mobile ? 'translateX(0px)' : 'translateX(-70px)')};
   }
 
 `
@@ -37,10 +38,20 @@ export const Header = styled.div`
   display : flex;
   align-items: center;
   justify-content: center;
-  background-color: hsla(225,30%,40%,0.95);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border-radius: 4px;
+  border: 1px solid #aaa;
   transition: all 0.3s;
-  & h4 {
+  h4 {
+    color: white;
+    font-size: 1rem;
     display : ${(props => props.collapse ? 'block' : 'none')};
+  }
+
+  @media (max-width: 768px) {
+   h4{
+      display : ${(props => props.mobile ? 'block' : 'none')};
+    }
   }
 `
 
@@ -56,6 +67,11 @@ export const ToggleButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  border-bottom-left-radius : 6px;
+  border-bottom-right-radius : 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   p{
     color: white;
     font-size: 1.1rem;
@@ -74,6 +90,14 @@ export const ToggleButton = styled.button`
     background-color : #444;
     border-radius: 3px;
   }
+  @media (max-width: 768px) {
+   p{
+      display : ${(props => props.mobile ? 'block' : 'none')};
+    }
+    &:hover::after{
+      display: ${(props => props.mobile ? 'none' : 'block')};
+    }
+  }
 `
 
 export const SectionForm = styled.form` 
@@ -85,7 +109,6 @@ export const SectionForm = styled.form`
   justify-content: center;
   color: #222324; 
   background-color: hsla(0, 0%, 100%, 0.9);
-
   h4{
     width: 100%;
     margin-bottom: 0.5rem;
@@ -103,6 +126,11 @@ export const SectionForm = styled.form`
       background-color: #222324;
     }
   }
+
+  @media (max-width: 768px) {
+    display : ${(props => props.mobile ? 'block' : 'none')};
+  }
+  
 `
 
 export const Label = styled.label`

@@ -51,12 +51,7 @@ const Box = styled.div`
   box-shadow: 0px 4px 4px  ${({theme}) => theme.cardShadow};
   border-radius : 4px;
   border : 1px solid ${({theme}) => theme.borderColor};
-
-  ${'' /* &:hover ${Header}{
-      animation : ${glow} 500ms alternate infinite; 
-  } */}
 `
-
 
 
 const Delete = styled.button`
@@ -83,7 +78,6 @@ const Content = styled.div`
   text-align: left;
   color : ${({theme}) => theme.fg};
   background-color : ${({theme}) => theme.cardBg};
-
   p{
     display : inline;
     ${'' /* they are literally just alternate names for each other. Some browsers support one and not the other */}

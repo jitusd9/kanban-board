@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Main } from '../styled/app-styled'
+import { Main, MobileNav } from '../styled/app-styled'
 import Loader from '../components/Loader'
 import Heading from '../components/Header'
 import Board from '../components/Board'
@@ -18,6 +18,7 @@ export default function Dashboard(props) {
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(false); 
   const [message, setMessage] = useState(null);
+  const [mobilenav, setMobilenav] = useState(false);
 
   async function userDetails(uid) {
     const userData = await getUserData(uid);
@@ -76,7 +77,6 @@ export default function Dashboard(props) {
   
   return (
      <>
-      <Sidebar />
       <Main> 
       {
         loading ? <Loader /> : sections.length === 0 ? <p>{message}</p> :

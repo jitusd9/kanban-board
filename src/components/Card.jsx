@@ -7,40 +7,37 @@ import { useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
 
 
-export default function Card(props) {
+function Card(props,ref) {
 
   const { currentUser } = useAuth();
   const [info, toggleInfo] = useState(false);
   const [confirm, askConfirm] = useState(false);
-  const [move, setMove] = useState(props.option && props.options[0].section_id);
 
 
-  function handleMove(){
-
-    if(move !== null){
-      moveCard(currentUser.uid, props.sectionId, parseInt(move, 10), props.id);
-    }
-  }
 
   function DeleteIt(){
     askConfirm(false);
     deleteCard(currentUser.uid ,props.id);
   }
-
+  
 
   return (
     <Box 
+    id={props.id}
     inputColor={props.inputColor} 
     draggable
-    
+    onDragStart={props.dragStartFunc}
+    onDragOver={e => e.stopPropagation()}
+    ref={ref}
+    onClick={e => console.log(e.target.id)}
     >
 
-      <Header inputColor={props.inputColor}>
+      <Header id={props.id} inputColor={props.inputColor}>
         <p>{props.created}</p>
         <Delete title='Delete Task' onClick={() => askConfirm(!confirm)}>&#xd7;</Delete>
       </Header>
 
-      <Content >
+      <Content>
         {
           confirm ? <YesNoBox> 
           <p>Are you sure?</p>
@@ -71,7 +68,7 @@ export default function Card(props) {
       </Content>
 
       <Footer>
-        <MoveCard>
+        {/* <MoveCard>
           <p>Move to ➡️</p>
           <select 
             name="sections" 
@@ -88,9 +85,11 @@ export default function Card(props) {
             }
           </select>
           <button type="submit" onClick={handleMove}>move</button>
-        </MoveCard>
+        </MoveCard> */}
       </Footer>
       
     </Box>
   )
 }
+
+export default React.forwardRef(Card)

@@ -45,7 +45,7 @@ export async function insertCard(uid, content, order, section) {
       section_id : section,
       created: Timestamp.fromDate(new Date())
     }).then(res => {
-      console.log(res);
+
     }).catch(err => console.log(err))
   }
 
@@ -56,7 +56,7 @@ export async function updateCard(uid, card_id, section_id){
   const docRef = doc(userDocRef, 'cards', card_id);
   await updateDoc(docRef, { section_id })
   .then(res => {
-    console.log('SUCCESS:', res)
+    console.log('updating Card SUCCESS')
   }).catch(err => console.log(err));
 }
 
@@ -74,20 +74,16 @@ export async function getCards(uid){
     const docSnap = await getDoc(userDocRef)
 
     if(docSnap.exists()){
-
       const cardRef = collection(userDocRef, 'cards');
       // const q = query(cardRef, orderBy("created", "asc"))
       const cardSnap = await getDocs(cardRef);
-      
       cardSnap.forEach(doc => {
         datatosend.push({
           id: doc.id,
           data: doc.data()
         })
       })
-
       return datatosend;
-
     }else{
       console.log('No such Document!')
     }
@@ -145,9 +141,8 @@ export async function deleteSection(uid, id){
   .catch(err => console.log('delete errors:', err))
 }
 
-export async function moveCard(uid, sectionFrom, sectionTo, card_id){
-  console.log(uid, sectionFrom, sectionTo);
-
+export async function moveCard(uid, sectionTo, card_id){
+  console.log(typeof sectionTo, typeof card_id)
   updateCard(uid, card_id, sectionTo);
 
 }

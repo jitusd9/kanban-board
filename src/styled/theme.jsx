@@ -21,12 +21,30 @@ const DarkGradient = css`
     animation: ${RGB} 3s infinite ease;
 `
 
+const navbarBg = css`
+  background-color:#ff99ee;
+  background-image:
+  radial-gradient(at 7% 49%, hsla(148,87%,68%,1) 0px, transparent 50%),
+  radial-gradient(at 72% 55%, hsla(359,89%,66%,1) 0px, transparent 50%),
+  radial-gradient(at 73% 67%, hsla(256,79%,66%,1) 0px, transparent 50%),
+  radial-gradient(at 74% 83%, hsla(291,82%,68%,1) 0px, transparent 50%),
+  radial-gradient(at 45% 32%, hsla(188,70%,64%,1) 0px, transparent 50%),
+  radial-gradient(at 5% 63%, hsla(231,84%,73%,1) 0px, transparent 50%),
+  radial-gradient(at 16% 2%, hsla(97,65%,65%,1) 0px, transparent 50%);
+`
+
+
 export const dark = {
   scheme : 'dark',
   fg: '#f9f9f9',
   bg : '#141414',
   headerBg : '#3d4751',
   headerFg : '#aaa',
+  monitorShade: '0 0 50px rgba(75,75,125,0.7)',
+  svgStroke: '#fff',
+  navbarBg,
+  navGrad : 'linear-gradient(45deg,#08b17a,hsl(212deg 92% 20%))',
+  navGrad : 'linear-gradient(45deg,hsl(160deg 89% 4% / 90%),hsl(212deg 92% 20% / 93%))',
   boardBg : '#151515',
   boardBorder : '#2d2d2d',
   cardBg : '#000',
@@ -59,12 +77,17 @@ const MessGradient = css`
     background-attachment: fixed;
 `
 
+
 export const light = {
   scheme : 'light',
   fg: '#222',
   bg : MessGradient,
+  navbarBg,
+  navGrad : 'linear-gradient(45deg,#08b17aed,hsl(212deg 92% 20% / 93%))',
   headerBg : '#f9f9f9',
   headerFg : '#222',
+  monitorShade: '0 0 50px rgba(0,0,0,0.7)',
+  svgStroke: '#000',
   boardBg : '#f9f9f9',
   boardBorder : '#f0f0f0',
   cardBg : '#fff',

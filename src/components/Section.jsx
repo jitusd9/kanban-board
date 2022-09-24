@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Card from './Card'
 import { 
   Container,
@@ -10,28 +10,38 @@ import {
   List,
   DeleteButton,
   DialogBox,
-  Placeholder
+  Placeholder,
 } from '../styled/section-styled';
 
 import { CheckUrlsInParagraph } from './utils';
 import { Button, Delete } from '../styled/card-styled';
-import { insertCard, getCards,deleteSection } from '../utils/DatabaseOperations';
+import { insertCard, getCards, deleteSection , moveCard } from '../utils/DatabaseOperations';
 import { useAuth } from '../context/AuthContext';
 
 import { doc, collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '../utils/init-firebase';
 import Loader from './Loader';
+import { createRef } from 'react';
 
 export default function Section(props) {
 
   const { currentUser } = useAuth();
-  
+
+  const dragItem = useRef();
+  const listContainerRef = useRef();
+  const listRef = useRef();
+  const cardRef = createRef();
+
+  var currentCardId = null;
+
   const [loading, setLoading] = useState(false);
   const [inputText, setInput] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [cards, setCards] = useState([]);
-  const [btnFunctions,setBtnFunctions] = useState([]);
+
+    const [DB, setDB] = useState(false);
+
 
   function deleteCard(id){
       props.delFunc(id);
@@ -66,10 +76,6 @@ export default function Section(props) {
     setLoading(false);
   }
 
-  function buttonsForCards() {  
-    let btns = props.options.filter(btn => btn.section_id !== props.id)
-    setBtnFunctions(btns);
-  }
 
   function cardsChanged(data){
     let filteredCard = data.filter(card => {
@@ -81,7 +87,6 @@ export default function Section(props) {
   useEffect(() => {
     setLoading(true);
     fetchUserCards(currentUser.uid);
-    buttonsForCards();
   },[])
 
   useEffect(() => {
@@ -105,8 +110,28 @@ export default function Section(props) {
 
   },[])
 
+  function dragStart(e){
+    const target = e.target;
+    e.dataTransfer.setData('card_id', target.id);
+
+  }
+
+  const drop = (e) => {
+    e.preventDefault();
+    
+    const card_id = e.dataTransfer.getData('card_id');
+
+    moveCard(currentUser.uid,  parseInt(listRef.current.parentNode.id, 10), card_id)
+  }
+
+
   return (
-    <Container>
+    <Container
+    id={props.id}
+    onDragOver={e => e.preventDefault()}
+    onDrop={drop}
+    ref={listContainerRef}
+    >
     <Header>
       <Title inputColor={props.bg} >
         <h2>{props.title}</h2> 
@@ -122,9 +147,12 @@ export default function Section(props) {
       </DialogBox> 
       : null
     }
-    <List>
+    <List 
+    ref={listRef}
+    >
       { 
         loading ? <Loader /> : cards.length === 0 ? <Placeholder>Nothing to Display</Placeholder> :
+        
         cards.map((card, index )=> {
           let textArray = CheckUrlsInParagraph(card.data.content);
           let dateObj = card.data.created?.toDate();
@@ -133,16 +161,14 @@ export default function Section(props) {
             <Card 
               key={index} 
               id={card.id} 
-              custom={ props.custom && props.custom } 
-              inputColor={props.hex} 
+              idx={index}
               delFunc={deleteCard}
-              editFunc={props.addFunc}
-              controls={props.controls}
               sectionId={card.data.section_id}
               sectionName={props.title}
               text={textArray}
-              created={time}
-              options={btnFunctions}
+              created={time}   
+              dragStartFunc={dragStart}
+              ref={cardRef}
             />
           )
         })
@@ -150,7 +176,13 @@ export default function Section(props) {
     </List>
       { 
         props.editable && !showAdd ?
-        <ModalButton onClick={() => setShowAdd(!showAdd)}>➕</ModalButton> : null
+        <ModalButton onClick={() => setShowAdd(!showAdd)}>
+          
+        <svg width="288" height="288" viewBox="0 0 288 288" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M115 0C106.716 0 100 6.71572 100 15V100H15C6.71573 100 0 106.716 0 115V172C0 180.284 6.71571 187 15 187H100V273C100 281.284 106.716 288 115 288H172C180.284 288 187 281.284 187 273V187H273C281.284 187 288 180.284 288 172V115C288 106.716 281.284 100 273 100H187V15C187 6.71573 180.284 0 172 0H115Z" fill="#868686"/>
+        </svg>
+
+        </ModalButton> : null
       }
       {
         showAdd && 

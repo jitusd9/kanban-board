@@ -47,6 +47,11 @@ const Button = styled.button`
 
 const ModalButton = styled(Button)`
   margin : 0.5rem;
+  border: none;
+  svg{
+    height: 20px;
+    width: auto;
+  }
 `
 
 export const Placeholder = styled.p` 
@@ -69,6 +74,9 @@ const Title = styled.div`
   align-items : center;
   text-align : center;
   position : relative;
+  h2{
+    text-transform: capitalize;
+  }
 `
 export const DeleteButton = styled.button`
   position: absolute;
@@ -118,6 +126,7 @@ const AddCard = styled(Title)`
   background-color : ${({theme}) => theme.titleBg};
   border : 1px solid #e3e3e3;
 `
+
 
 export {
   Container,

@@ -7,16 +7,31 @@ const Container = styled.div`
 `
 
 const Welcome = styled.div`
+  position: relative;
   width: 90%;
   margin-top: 40px;
   margin-inline: auto;
-  color : ${({theme}) => theme.headerFg};
+  padding-block: 1rem;
+  svg{
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: 5rem;
+    width: auto;
+  }
   h1{
+    color : ${({theme}) => theme.headerFg};
     font-family: 'Righteous', sans-serif;
     font-size: 4em; 
     text-transform: capitalize;
   }
-
+  p{
+    color : ${({theme}) => theme.headerFg};
+    font-size: 1.1rem;
+    font-family: Cursive;
+    padding-block: 1rem;
+  }
   @media (max-width: 768px) {
     h1{
       font-size: 3em;
@@ -38,11 +53,12 @@ const Monitor = styled.div`
   max-width: 800px;
   height: auto;
   margin-inline: auto;
+  margin-top: 2rem;
   color : ${({theme}) => theme.headerFg};
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow:0 0.5px 0 white, 0 0.5px 1px white inset;
+  box-shadow:0 0.5px 0 white, 0 0.5px 1px white inset, ${({theme}) => theme.monitorShade};
   img{
     position: relative;
     z-index: -1;
@@ -78,10 +94,7 @@ const Monitor = styled.div`
 export const Links = styled.div` 
   width: 100%;
   height: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,9 +104,9 @@ export const Links = styled.div`
 
 const Cta = styled.button`
   position : relative;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: white;
+  color: #333;
   padding: 0.5rem 1rem;
   margin: 0.5rem;
   background-color: transparent;

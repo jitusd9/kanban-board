@@ -31,17 +31,21 @@ const Navpanel = styled.ul`
   left: 50%;
   transform: translate(-50%,0%);
   list-style: none;
-  max-width : 100%;
+  max-width : calc(100% - 0.5rem);
   min-height: 50px;
   margin-inline: auto;
   margin-block: 0;
   display: flex;
   align-items: strech;
-  background-color: #62798f;
+  ${'' /* background-color: ${({theme}) => theme.navbarBg}; */}
+  background: linear-gradient(45deg,#08b17a,hsl(212deg 92% 20%));
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   overflow: hidden;
   z-index: 1;
+  border: 1px solid #aaa;
+  border-top: none;
+  box-shadow: 0 3px 9px rgba(0,0,0,0.6);
   a{
       font-weight: bold;
       color: #f9f9f9;
@@ -50,27 +54,93 @@ const Navpanel = styled.ul`
       align-items: center;
       justify-content: center;
       text-shadow: 0 2px 2px rgba(0,0,0,0.2);
+      padding-inline: 0.5rem;
     }
   li{
     flex: 1;
     display : flex;
     align-items: strech;
-    padding-inline: 1rem;
     &:hover{
       background-color: white;
       a{
         color: black;
       }
     }
-    
+  }
+  @media (max-width: 768px) {
+    width: 90%;
+    margin: 0;
+    padding: 0;
+  }
+`
+
+export const MobileNav = styled.div`
+  width: 30px;
+  height: 60px;
+  border-bottom-left-radius: 4px;
+  position: fixed;
+  top: 50%;
+  left: 0%;
+  z-index: 1;
+  background: linear-gradient(270deg,#08b17a,hsl(212deg 92% 20%));
+  transform: translate(0%,-50%);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid #aaa;
+  
+  @media (max-width: 768px) {
+    display: flex;
   }
 
 `
 
-const ThemeButton = styled.li`
+const shake = keyframes` 
+  from{
+    transform: rotate(0deg)
+  }
+  to{
+    transform: rotate(90deg);
+  }
+`
+
+const ThemeButton = styled.button`
+  display: ${props => props.mobile ? 'none' : 'flex'};
   cursor: pointer;
+  flex-direction : column;
   align-items: center;
   justify-content: center;
+  border: none;
+  background-color: transparent;
+  flex: 1;
+  align-items: strech;
+  padding: 0.4rem;
+  transition: none;
+  width: 50px;
+  height: 50px;
+  div{
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 4px;
+  }
+  div:nth-child(2){
+    margin-block: 4px;
+    width: 70%;
+    margin-right: 30%;
+  }
+  div:nth-child(3){
+    width: 80%;
+    margin-right: 20%;
+  }
+  @media (max-width: 768px) {
+    display: flex;
+  }
+
 `
 
 
@@ -123,9 +193,20 @@ const Container = styled.div`
   overflow-x : auto;
 `
 
+const SVGIcon = styled.img` 
+  position: absolute;
+  height: 20px;
+  width: auto;
+  transition: all 0.3s cubic-bezier(0.77, 0.75, 0.47, 1.31);
+  transform: translateY(${props => props.theme});
+  &:hover{
+    transform: translateY(${props => props.theme}) rotate(360deg);
+  }
+`
+
 const Icon = styled.img`
   height : 28px;
   width : 28px;
 `
 
-export {Main, Input, Header, Container, ThemeButton, Icon, ToggleSwitch, Navpanel}
+export {Main, SVGIcon, Input, Header, Container, ThemeButton, Icon, ToggleSwitch, Navpanel}

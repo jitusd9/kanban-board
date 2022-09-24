@@ -40,7 +40,7 @@ export default function App() {
         <BrowserRouter>
         <Navbar theme={theme} toggleTheme={toggleTheme} />
           <Routes>
-            <Route path="/" element={ <Landingpage /> }/>
+            <Route path="/" element={ <Landingpage theme={theme} /> }/>
             <Route path="/dashboard" element={ 
               <RequireAuth>
                 <Dashboard />
