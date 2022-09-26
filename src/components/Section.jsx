@@ -27,20 +27,15 @@ export default function Section(props) {
 
   const { currentUser } = useAuth();
 
-  const dragItem = useRef();
   const listContainerRef = useRef();
-  const listRef = useRef();
   const cardRef = createRef();
 
-  var currentCardId = null;
 
   const [loading, setLoading] = useState(false);
   const [inputText, setInput] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [cards, setCards] = useState([]);
-
-    const [DB, setDB] = useState(false);
 
 
   function deleteCard(id){
@@ -121,7 +116,7 @@ export default function Section(props) {
     
     const card_id = e.dataTransfer.getData('card_id');
 
-    moveCard(currentUser.uid,  parseInt(listRef.current.parentNode.id, 10), card_id)
+    moveCard(currentUser.uid,  parseInt(listContainerRef.current.id, 10), card_id)
   }
 
 
@@ -152,7 +147,7 @@ export default function Section(props) {
         loading ? <Loader /> : cards.length === 0 ? <Placeholder>Nothing to Display</Placeholder> :
         
         <List 
-          ref={listRef}
+          id={props.id}
         >
         {
           cards.map((card, index )=> {
