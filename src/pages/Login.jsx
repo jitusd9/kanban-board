@@ -10,6 +10,7 @@ export default function Login() {
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPass, setShowPass] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
@@ -53,27 +54,39 @@ export default function Login() {
         <ImageContainer>
         </ImageContainer>
         <h2>Login</h2>
-        <label htmlFor="uname">Email</label>
+        <label htmlFor="uname">
         <input 
           value={email} 
           onChange={(e)=> setEmail(e.target.value)} 
           type="email" 
           autoComplete='email'
-          name="email" 
+          name="email"
+          placeholder='Email' 
         />
+        </label>
+        
 
-        <label htmlFor="psw">Password</label>
+        <label htmlFor="psw">
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          type="password" 
+          type={showPass ? "text" : "password"} 
           name="password" 
+          placeholder="Password"
         />
+        <button
+        onClick={async e => {
+          e.preventDefault();
+          setShowPass(!showPass);
+        }}
+        >{ showPass ? <span>🔓</span> : <span>🔒</span> }</button>
+        </label>
+        
         <button type="submit">Login</button>
       </Form>
       <Links>
         <Link to="/forgot-password">Forgot password?</Link>
-        <Link to="/register">Register</Link>
+        <Link to="/register">create a new account</Link>
       </Links>
       <GoogleButton 
         onClick={e => 

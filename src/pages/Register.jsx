@@ -12,6 +12,7 @@ export default function Register() {
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPass, setShowPass] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
@@ -57,24 +58,35 @@ export default function Register() {
 
         <h2>Create a new Account</h2>
 
-          <label htmlFor="psw">Email</label>
-          <input 
-            value={email} 
-            onChange={(e)=> setEmail(e.target.value)} 
-            type="email" 
-            autoComplete='email' 
-            name="email" 
-             
-          />
-
-          <label htmlFor="psw">Password</label>
+          <label htmlFor="psw">
+            <input 
+              value={email} 
+              onChange={(e)=> setEmail(e.target.value)} 
+              type="email" 
+              autoComplete='email' 
+              name="email" 
+              placeholder='Email'
+            />
+          </label>
+          
+          <label htmlFor="psw">
           <input 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            type="password" 
+            type={showPass ? "text" : "password"}
             name="password" 
-             
+            placeholder='Password'
           />
+          <button
+            onClick={async e => {
+              e.preventDefault();
+              setShowPass(!showPass);
+            }}
+          >
+            { showPass ? <span>🔓</span> : <span>🔒</span> }
+          </button>
+          </label>
+         
 
           <button 
             type="submit"
@@ -82,7 +94,7 @@ export default function Register() {
 
       </Form>
       <Links>
-        <Link to='/login'>Login</Link>
+        <Link to='/login'>Already have an account? login</Link>
       </Links>
 
       <GoogleButton

@@ -90,20 +90,33 @@ const Form = styled.form`
     font-size: 1.5em;
     margin-block: 0.5rem;
   }
+  label{
+    color: ${({theme}) => theme.formFg};
+    display:flex;
+    margin: 0.5rem auto;
+    padding: 2px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    button{
+      background-color : transparent;
+      margin: 0;
+      padding: 0;
+      width: 40px;
+      &:hover{
+        background-color : rgba(0,0,0,0.1);
+      }
+    }
+  }
   input{
     width: 100%;
     font-size: 1.2em;
-    padding: 0.5rem 1rem;
-    margin: 0.5rem auto;
-    display: inline-block;
-    border: 1px solid #aaa;
+    padding: 0.5rem ;
+    border: none;
+    display: block;
     box-sizing: border-box;
-    border-radius: 4px;
     background-color: ${({theme}) => theme.formBg};
   }
-  label{
-    color: ${({theme}) => theme.formFg};
-  }
+
   button{
     background-color: steelblue;
     color: white;
