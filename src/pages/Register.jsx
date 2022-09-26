@@ -39,7 +39,8 @@ export default function Register() {
           setIsSubmitting(true);
           register(email,password)
             .then(response => {
-              addUserToDatabase(response.user.uid);
+              console.log(response);
+              addUserToDatabase(response);
               navigate(location.state?.from ?? '/dashboard', {replace: true});
             })
             .catch(error => {

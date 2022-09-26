@@ -63,7 +63,7 @@ export default function Section(props) {
 
   function handleSave(){
     if(inputText !== ""){
-      insertCard(currentUser.uid ,inputText, 0, props.id, currentUser.uid)
+      insertCard(currentUser.uid ,inputText, 0, props.id)
       .then(res => {}).catch(err => console.log(err))
     }
     setInput("")
@@ -147,33 +147,37 @@ export default function Section(props) {
       </DialogBox> 
       : null
     }
-    <List 
-    ref={listRef}
-    >
+
       { 
         loading ? <Loader /> : cards.length === 0 ? <Placeholder>Nothing to Display</Placeholder> :
         
-        cards.map((card, index )=> {
-          let textArray = CheckUrlsInParagraph(card.data.content);
-          let dateObj = card.data.created?.toDate();
-          let time = dateObj?.toLocaleString();
-          return(
-            <Card 
-              key={index} 
-              id={card.id} 
-              idx={index}
-              delFunc={deleteCard}
-              sectionId={card.data.section_id}
-              sectionName={props.title}
-              text={textArray}
-              created={time}   
-              dragStartFunc={dragStart}
-              ref={cardRef}
-            />
-          )
-        })
+        <List 
+          ref={listRef}
+        >
+        {
+          cards.map((card, index )=> {
+            let textArray = CheckUrlsInParagraph(card.data.content);
+            let dateObj = card.data.created?.toDate();
+            let time = dateObj?.toLocaleString();
+            return(
+              <Card 
+                key={index} 
+                id={card.id} 
+                idx={index}
+                delFunc={deleteCard}
+                sectionId={card.data.section_id}
+                sectionName={props.title}
+                text={textArray}
+                created={time}   
+                dragStartFunc={dragStart}
+                ref={cardRef}
+              />
+            )
+          })
+        }
+        </List>
       }
-    </List>
+
       { 
         props.editable && !showAdd ?
         <ModalButton onClick={() => setShowAdd(!showAdd)}>

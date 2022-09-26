@@ -45,7 +45,7 @@ export default function Sidebar(props) {
     <FixedContainer collapse={collapse} mobile={props.mobile}>
       <Header collapse={collapse} mobile={props.mobile}>
        {
-        collapse || props.mobile ? <h4> {currentUser.email}</h4> :
+        collapse || props.mobile ? <h4> {currentUser.isAnonymous ? 'Anonymous' : currentUser.email}</h4> :
         <Icon> 🔧 </Icon>
        }
       </Header>

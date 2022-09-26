@@ -2,8 +2,13 @@ import React from "react";
 import {Link} from 'react-router-dom'
 import { Container, Welcome,Links, Cta , Monitor} from '../styled/landingpage-styled'
 import dashboardImg from "../assests/dashboard.webp"
+import { useAuth } from "../context/AuthContext";
+import { addUserToDatabase } from "../utils/DatabaseOperations";
+
 
 export default function Landingpage(props){
+
+  const { currentUser, anonymousLogin } = useAuth();
 
   return(
     <Container>
@@ -17,18 +22,37 @@ export default function Landingpage(props){
         <p>personal <span>task</span> management tool</p>
       </Welcome>
      
-      <Links>
+      {
+        currentUser === null ? <Links>
         <Link to="/login">   
           <Cta>
             Get Started with Login
           </Cta>
         </Link>
-        <a target="_blank" href="https://stickrr.netlify.app/">   
-          <Cta>
+        <div>     
+          <Cta
+          onClick={async e => {
+            anonymousLogin()
+              .then((response) => {
+                console.log(response)
+                addUserToDatabase(response);
+              })
+              .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+              });
+          }}
+          >
             Checkout Anonymously
           </Cta>
-        </a>
-      </Links>
+        </div>
+      </Links> : 
+      <Link to="/dashboard">   
+        <Cta>
+          Go to Dashboard
+        </Cta>
+      </Link>
+      }
 
       <Monitor>
        

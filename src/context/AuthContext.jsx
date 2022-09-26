@@ -8,7 +8,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
-  confirmPasswordReset
+  confirmPasswordReset,
+  signInAnonymously
 } from "firebase/auth";
 
 
@@ -20,6 +21,7 @@ const AuthContext = createContext({
   signInWithGoogle : () => Promise,
   forgotPassword: () => Promise,
   resetPassword: () => Promise,
+  anonymousLogin: () => Promise,
 })
 
 export const useAuth = () => useContext(AuthContext);
@@ -47,12 +49,19 @@ export default function AuthContextProvider({ children }){
   }
 
   function logout(){
+    if(auth.currentUser.isAnonymous){
+      alert('You are anonymous your data will be lost!')
+    }
     return signOut(auth);
   }
 
   function signInWithGoogle(){
     const provider = new GoogleAuthProvider;
     return signInWithPopup(auth, provider);
+  }
+
+  function anonymousLogin(){
+    return signInAnonymously(auth)
   }
 
   function forgotPassword(email){
@@ -72,7 +81,8 @@ export default function AuthContextProvider({ children }){
     logout,
     signInWithGoogle,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    anonymousLogin
   }
 
   return(
