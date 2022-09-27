@@ -100,9 +100,13 @@ export default function Sidebar(props) {
       data-description="Menu"
       collapse={collapse} 
       mobile={props.mobile}
-      onClick={() => {setCollapse(!collapse); setToggleForm(false)}}>
+      onClick={() => {
+        setCollapse(!collapse); 
+        props.toggleNavFunc();
+        setToggleForm(false)
+      }}>
         {
-          collapse ? <Icon>⬅️</Icon> : <Icon>➡️</Icon>
+          collapse || props.mobile ? <Icon>⬅️</Icon> : <Icon>➡️</Icon>
         }
       </ToggleButton>
     </FixedContainer>

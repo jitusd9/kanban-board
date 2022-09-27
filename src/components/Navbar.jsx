@@ -12,10 +12,19 @@ export default function Navbar(props) {
   const location = useLocation();
   const [mobileNav, setMobileNav] = useState(false);
 
+  function toggleMobleNav(){
+    setMobileNav(!mobileNav);
+  }
+
   return (
     <>  
         {
-          currentUser && location.pathname === '/dashboard' ? <Sidebar mobile={mobileNav} /> : null
+          currentUser && location.pathname === '/dashboard' ?
+           <Sidebar 
+            mobile={mobileNav} 
+            toggleNavFunc={toggleMobleNav}
+           /> 
+           : null
         }
         <Navpanel>
           {
