@@ -18,6 +18,7 @@ const Header = styled.div`
 const List = styled.div`
   position : relative;
   width: 100%;
+  min-height: 100px;
   max-height: 400px;
   padding-inline : 0.2rem;
   overflow-y: auto;

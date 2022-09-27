@@ -50,7 +50,7 @@ export default function AuthContextProvider({ children }){
 
   function logout(){
     if(auth.currentUser.isAnonymous){
-      alert('You are anonymous your data will be lost!')
+      // 'You are anonymous your data will be lost!' 
     }
     return signOut(auth);
   }

@@ -1,14 +1,19 @@
-import React from "react";
-import {Link} from 'react-router-dom'
+import React, {useState} from "react";
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import { Container, Welcome,Links, Cta , Monitor} from '../styled/landingpage-styled'
 import dashboardImg from "../assests/dashboard.webp"
 import { useAuth } from "../context/AuthContext";
 import { addUserToDatabase } from "../utils/DatabaseOperations";
+import useMounted from "../hooks/useMounted";
 
 
 export default function Landingpage(props){
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const mounted = useMounted();
   const { currentUser, anonymousLogin } = useAuth();
+  const [loader, setloader] = useState(false);
 
   return(
     <Container>
@@ -24,27 +29,28 @@ export default function Landingpage(props){
      
       {
         currentUser === null ? <Links>
-        <Link to="/login">   
-          <Cta>
-            Get Started with Login
-          </Cta>
-        </Link>
         <div>     
-          <Cta
-          onClick={async e => {
-            anonymousLogin()
-              .then((response) => {
-                console.log(response)
-                addUserToDatabase(response);
-              })
-              .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-              });
-          }}
-          >
-            Checkout Anonymously
-          </Cta>
+          {
+            loader ? <Cta>Wait...</Cta> : 
+            <Cta
+              onClick={async e => {
+                setloader(true);
+                anonymousLogin()
+                  .then((response) => {
+                    console.log(response)
+                    addUserToDatabase(response);
+                    navigate(location.state?.from ?? '/dashboard', {replace: true});
+                  })
+                  .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setloader(false);
+                  }).finally(() => mounted.current && setloader(false));
+              }}
+              >
+              Checkout Anonymously
+            </Cta>
+          }
         </div>
       </Links> : 
       <Link to="/dashboard">   

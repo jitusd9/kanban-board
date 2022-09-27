@@ -143,13 +143,12 @@ export default function Section(props) {
       : null
     }
 
-      { 
-        loading ? <Loader /> : cards.length === 0 ? <Placeholder>Nothing to Display</Placeholder> :
         
         <List 
           id={props.id}
         >
         {
+          loading ? <Loader /> : cards.length === 0 ? <Placeholder>Nothing to Display</Placeholder> :
           cards.map((card, index )=> {
             let textArray = CheckUrlsInParagraph(card.data.content);
             let dateObj = card.data.created?.toDate();
@@ -171,7 +170,6 @@ export default function Section(props) {
           })
         }
         </List>
-      }
 
       { 
         props.editable && !showAdd ?
