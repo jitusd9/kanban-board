@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   position: relative;
-  width: 320px;
+  width: ${props => props.ListWidth}px;
   height: auto;
   background-color: ${({theme}) => theme.boardBg};
-  margin: 0.4rem;
+  margin: 0.8rem;
   padding : 0.4rem;
   border-radius: 4px;
   border: 8px solid ${({theme}) => theme.boardBorder};
@@ -19,10 +19,13 @@ const List = styled.div`
   position : relative;
   width: 100%;
   min-height: 100px;
-  max-height: 400px;
+  max-height: ${props => props.ListHeight}px;
   padding-inline : 0.2rem;
   overflow-y: auto;
   scroll-behavior : smooth;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 `
 
 const Input = styled.textarea`
@@ -128,6 +131,19 @@ const AddCard = styled(Title)`
   border : 1px solid #e3e3e3;
 `
 
+export const Resize = styled.button` 
+  position: absolute;
+  top: ${props => props.t};
+  left: ${props => props.l};
+  height: ${props => props.h};
+  width: ${props => props.w};
+  padding:0;
+  margin: 0;
+  border: none;
+  transform: translate(-50%,-50%);
+  background-color: transparent;
+  cursor: ${props => props.cursor};
+`
 
 export {
   Container,

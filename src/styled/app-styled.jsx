@@ -2,7 +2,12 @@ import styled, { keyframes } from "styled-components";
 
 const Main = styled.div`
   margin-top: 2rem;
-  width: 100%;
+  width: calc(100% - 70px);
+  margin-left: 70px;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+  }
 `
 const Input = styled.input`
   font-size : 2.5em;
@@ -190,7 +195,6 @@ const Container = styled.div`
   flex-wrap : wrap;
   justify-content: center;
   width : 100%;
-  overflow-x : auto;
 `
 
 const SVGIcon = styled.img` 

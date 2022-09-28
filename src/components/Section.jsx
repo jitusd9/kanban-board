@@ -11,6 +11,7 @@ import {
   DeleteButton,
   DialogBox,
   Placeholder,
+  Resize,
 } from '../styled/section-styled';
 
 import { CheckUrlsInParagraph } from './utils';
@@ -30,7 +31,7 @@ export default function Section(props) {
   const listContainerRef = useRef();
   const cardRef = createRef();
 
-
+  const [size, setSize] = useState({x: 320, y: 400})
   const [loading, setLoading] = useState(false);
   const [inputText, setInput] = useState("");
   const [showAdd, setShowAdd] = useState(false);
@@ -119,10 +120,39 @@ export default function Section(props) {
     moveCard(currentUser.uid,  parseInt(listContainerRef.current.id, 10), card_id)
   }
 
+  function resize(e) {
+    const startSize = size;
+    const startPos = {x: e.pageX, y: e.pageY};
+    console.log(e.target.dataset.resize);
+    let resizetype = e.target.dataset.resize;
+    function onmouseMove(e){
+      // console.log(e);
+      if(resizetype === '0'){
+        let y = startSize.y - startPos.y + e.pageY;
+        if(y < 400) y = 400;
+        setSize(currentSize => ({x: currentSize.x,y}))
+    }
+    if(resizetype === '1'){
+        let x = startSize.x - startPos.x + e.pageX;
+        if(x < 320) x = 320;
+        setSize(currentSize => ({ x, y: currentSize.y }))
+      }
+    }
+
+    function onmouseUp(){
+      document.body.removeEventListener("mousemove", onmouseMove);
+      // uncomment the following line if not using `{ once: true }`
+      // document.body.removeEventListener("mouseup", onMouseUp);
+    }
+
+    document.body.addEventListener("mousemove", onmouseMove);
+    document.body.addEventListener("mouseup", onmouseUp, { once: true });
+  }
 
   return (
     <Container
     id={props.id}
+    ListWidth={size.x}
     onDragOver={e => e.preventDefault()}
     onDrop={drop}
     ref={listContainerRef}
@@ -146,6 +176,7 @@ export default function Section(props) {
         
         <List 
           id={props.id}
+          ListHeight={size.y}
         >
         {
           loading ? <Loader /> : cards.length === 0 ? <Placeholder>Nothing to Display</Placeholder> :
@@ -188,6 +219,47 @@ export default function Section(props) {
           <Button onClick={() =>{ handleSave()}}> Save Card</Button>
         </AddCard>
       }
+
+      <Resize
+        data-resize={0}
+        onMouseDown={resize}
+        t="-8px"
+        l="50%"
+        h="8px"
+        w="100%"
+        cursor="n-resize"
+      ></Resize>
+
+      <Resize
+        data-resize={0}
+        onMouseDown={resize}
+        t="calc(100% + 8px)"
+        l="50%"
+        h="8px"
+        w="100%"
+        cursor="n-resize"
+      ></Resize>
+
+      <Resize
+        data-resize={1}
+        onMouseDown={resize}
+        t="50%"
+        l="-8px"
+        h="100%"
+        w="8px"
+        cursor="e-resize"
+      ></Resize>
+
+      <Resize
+        data-resize={1}
+        onMouseDown={resize}
+        t="50%"
+        l="calc(100% + 8px)"
+        h="100%"
+        w="8px"
+        cursor="e-resize"
+      ></Resize>
+
     </Container>
   )
 }

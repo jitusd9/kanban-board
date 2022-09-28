@@ -45,6 +45,7 @@ const Footer = styled(Header)`
 
 const Box = styled.div`
   position : relative;
+  width: 300px;
   min-height : 60px;
   background-color: ${({theme}) => theme.cardBg};
   margin-block: 0.5rem; 
